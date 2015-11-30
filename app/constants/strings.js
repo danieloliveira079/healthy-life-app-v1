@@ -23,8 +23,12 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
       Title: "About"
     },
   Campaign:{
-    Title: "Campanha"
+    Title: "Campanhas"
+  },
+  Operations:{
+    Edit: "Editar"
   }
+
 });
 
 module.exports = Strings['pt-BR'];

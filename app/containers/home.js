@@ -19,8 +19,25 @@ export default React.createClass({
 
     render() {
       return (
-        <div className="app-page page-home">
-          {Strings.Campaign.Title}
+        <div>
+          <div className="row">
+            <div className="section">
+              <h5>{Strings.Campaign.Title}</h5>
+            </div>
+            <div className="divider"></div>
+          </div>
+          <div className="row">
+            <div className="col s12 m6">
+              <div className="row">
+                  <div className="col s12">Alongamentos para Empresas</div>
+                  <div className="col s12">Lista de alongamentos para funcionários fazerem durante o expediente.</div>
+                  <div className="col s3">Inscritos</div>
+                  <div className="col s3">Slides</div>
+                  <div className="col s3">Intervalo</div>
+                  <div className="col s3"><a onClick={this.handleQueryClick}>{Strings.Operations.Edit}</a></div>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }

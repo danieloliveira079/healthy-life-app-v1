@@ -23,7 +23,8 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
       Title: "About"
     },
   Campaign:{
-    Title: "Campanhas"
+    Title: "Campanhas",
+    FormTitle: "Campanha"    
   },
   Operations:{
     Edit: "Editar"

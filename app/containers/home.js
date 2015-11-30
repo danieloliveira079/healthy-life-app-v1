@@ -7,25 +7,22 @@ export default React.createClass({
     mixins: [ FluxMixins, RouterMixins ],
 
     handleQueryClick () {
-      this.transitionTo("/about", { q1: 1, q2: "test" });
+      this.transitionTo("/campaign", { q1: 1});
     },
 
     handleParamsClick () {
       const param1 = "123";
-      const param2 = 456;
 
-      this.transitionTo(`/about/${param1}/test/${param2}`);
+      this.transitionTo(`/campaign/${param1}`);
     },
 
     render() {
       return (
-        <div>
-          <div className="row">
-            <div className="section">
-              <h5>{Strings.Campaign.Title}</h5>
-            </div>
-            <div className="divider"></div>
+        <div className="app-page page-home">
+          <div className="section">
+            <h5>{Strings.Campaign.Title}</h5>
           </div>
+          <div className="divider"></div>        
           <div className="row">
             <div className="col s12 m6">
               <div className="row">
@@ -34,7 +31,7 @@ export default React.createClass({
                   <div className="col s3">Inscritos</div>
                   <div className="col s3">Slides</div>
                   <div className="col s3">Intervalo</div>
-                  <div className="col s3"><a onClick={this.handleQueryClick}>{Strings.Operations.Edit}</a></div>
+                  <div className="col s3"><a onClick={this.handleParamsClick}>{Strings.Operations.Edit}</a></div>
               </div>
             </div>
           </div>

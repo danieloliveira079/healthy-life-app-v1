@@ -42,14 +42,15 @@ export default React.createClass({
 
   checkNavbarTitle () {
     const pathName = this.props.location;
+    console.log(pathName);
 
-    switch (pathName.pathname) {
-      case "/about":
+    if (/\/about/.test(pathName.pathname)) {
         this.refs.navbar.updateTitle(Strings.About.Title);
-        break;
-      default:
-        this.refs.navbar.updateTitle(Strings.Home.Title);
-        break;
+    } else if (/\/campaign/.test(pathName.pathname)) {
+        this.refs.navbar.updateTitle(Strings.Campaign.Title);
+    }
+    else {
+      this.refs.navbar.updateTitle(Strings.Home.Title);
     }
   },
 

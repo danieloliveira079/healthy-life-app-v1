@@ -6,6 +6,7 @@ import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
 
 import Navbar from '../components/navbar';
+import Btn from '../components/fixed-button';
 
 const menuItems = [
   { name: Strings.Home.Title, route: "/" },
@@ -86,11 +87,13 @@ export default React.createClass({
           {menu}
         </Navbar>
 
+        <Btn />
+
         <div className="container">
           {this.props.children}
         </div>
 
-        <footer className="page-footer">
+        <footer className="page-footer blue">
          <div className="footer-copyright">
             <div className="container center">
             {Strings.App.FooterText} {Strings.App.Name}

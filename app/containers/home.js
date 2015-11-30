@@ -1,8 +1,6 @@
 import React from 'react';
-
-
 import { FluxMixins, RouterMixins } from '../mixins';
-
+import { Strings } from '../constants';
 
 export default React.createClass({
 
@@ -22,12 +20,7 @@ export default React.createClass({
     render() {
       return (
         <div className="app-page page-home">
-          Home Page
-
-          <br />
-          <a onClick={this.handleQueryClick}>About (query)</a>
-          <br />
-          <a onClick={this.handleParamsClick}>About (params)</a>
+          {Strings.Campaign.Title}
         </div>
       );
     }

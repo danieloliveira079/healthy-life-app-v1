@@ -36,12 +36,12 @@ export default React.createClass({
 
   render () {
     return (
-      <nav className="navbar-component">
+      <nav className="navbar-component blue">
         <ul id="slide-out" className="side-nav">
           {this.props.children}
         </ul>
         <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="mdi-navigation-menu"></i></a>
-        <a href="#" className="brand-logo">{this.state.title}</a>      
+        <a href="#" className="brand-logo">{this.state.title}</a>
       </nav>
     );
   }

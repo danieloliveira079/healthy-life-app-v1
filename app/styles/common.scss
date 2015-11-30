@@ -1,0 +1,20 @@
+html {
+
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5em;
+    width: 100%;
+  }
+
+  .page-footer{
+    background-color: $main-color;
+  }
+}

@@ -120,9 +120,9 @@ export default React.createClass({
                    onSlide={this.handleSlide}/>
               </div>
               <div className="row">
-                <div className="col s4" ><a className="waves-effect waves-light blue btn-large right" onClick={this.handleCancel}>{Strings.Operations.Cancel}</a></div>
-                <div className="col s4" ><a className="waves-effect waves-light blue btn-large">{Strings.Operations.Save}</a></div>
-                <div className="col s4" ><a className="waves-effect waves-light red btn-large left">{Strings.Operations.Delete}</a></div>
+                <div className="col s4"><a className="waves-effect waves-light blue btn-large right" onClick={this.handleCancel}>{Strings.Operations.Cancel}</a></div>
+                <div className="col s4"><a className="waves-effect waves-light blue btn-large">{Strings.Operations.Save}</a></div>
+                <div className="col s4"><a className="waves-effect waves-light red btn-large left">{Strings.Operations.Delete}</a></div>
               </div>
             </form>
           </div>

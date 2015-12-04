@@ -27,6 +27,7 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     FormTitle: "Campanha"
   },
   Operations:{
+    New: "Nova",
     Edit: "Alterar",
     Save: "Salvar",
     Cancel: "Cancelar",

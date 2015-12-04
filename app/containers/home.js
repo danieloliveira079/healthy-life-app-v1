@@ -25,8 +25,10 @@ export default React.createClass({
       return (
         <div className="app-page page-home">
           <div className="section">
-            <h5>{Strings.Campaign.Title}</h5>
-
+            <div className="row">
+              <div className="col s2">  <h5>{Strings.Campaign.Title}</h5></div>
+              <div className="col s10"><a className="waves-effect waves-light blue btn-large right" onClick={this.handleParamsClick}>{Strings.Operations.New}</a></div>
+            </div>
           </div>
           <div className="divider"></div>
           <div className="row">

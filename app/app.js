@@ -5,7 +5,7 @@ import React from 'react';
 import { Router } from 'react-router';
 import { render } from 'react-dom'
 import FastClick from 'fastclick';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import createHistory from 'history/lib/createHashHistory';
 
 
 import routes from './routes';
@@ -20,7 +20,9 @@ import './styles/app.scss';
 
 (() => {
 
-  let history = createBrowserHistory();
+  var history = createHistory({
+    queryKey: false
+  });
 
   document.addEventListener('DOMContentLoaded', () => {
     FastClick.attach(document.body);

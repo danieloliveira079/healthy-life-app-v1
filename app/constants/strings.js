@@ -10,7 +10,7 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
   language: 'pt-BR',
 
   App: {
-    Name: "Healty Life",
+    Name: "Healthy Life",
     FooterText: `©  ${new Date().getFullYear()}`,
     Exit: "Sair"
   },
@@ -24,10 +24,13 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     },
   Campaign:{
     Title: "Campanhas",
-    FormTitle: "Campanha"    
+    FormTitle: "Campanha"
   },
   Operations:{
-    Edit: "Editar"
+    Edit: "Alterar",
+    Save: "Salvar",
+    Cancel: "Cancelar",
+    Delete: "Excluir"
   }
 
 });

@@ -83,17 +83,15 @@ export default React.createClass({
 
     return (
       <div className="app">
+        <div className="wrap grey lighten-4" >
+            <Navbar ref="navbar" title={this.state.pageTitle} onRightClick={this.onRightClick}>
+              {menu}
+            </Navbar>
 
-        <Navbar ref="navbar" title={this.state.pageTitle} onRightClick={this.onRightClick}>
-          {menu}
-        </Navbar>
-
-        <Btn />
-
-        <div className="container">
-          {this.props.children}
-        </div>
-
+            <div className="container main">
+              {this.props.children}
+            </div>
+      </div>
         <footer className="page-footer blue">
          <div className="footer-copyright">
             <div className="container center">

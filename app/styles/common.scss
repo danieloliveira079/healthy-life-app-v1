@@ -1,4 +1,5 @@
 html {
+  height: 100%;
 
 }
 
@@ -6,12 +7,20 @@ body {
   margin: 0;
   padding: 0;
 
-  footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  .wrap{
+    min-height: 100%;
+  }
+
+  .main{
+    overflow:auto;
+	  padding-bottom: 0em;
+  }
+
+  .footer {
+    position: relative;
+    margin-top: -5em;
     height: 5em;
-    width: 100%;
+    clear: both;
   }
 
   .page-footer{

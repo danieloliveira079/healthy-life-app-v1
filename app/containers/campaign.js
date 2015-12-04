@@ -1,8 +1,20 @@
 import React from 'react';
 import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
+import Btn from '../components/fixed-button';
+
+import ImageGallery from 'react-image-gallery';
 
 export default React.createClass({
+  mixins: [ FluxMixins, RouterMixins ],
+
+  handleSlide: function(index) {
+    console.log('Slid to ' + index);
+  },
+
+  handleCancel(){
+    this.transitionTo("/");
+  },
 
   componentDidMount(){
     $('select').material_select();
@@ -11,25 +23,54 @@ export default React.createClass({
   render() {
     const { query } = this.props.location;
     const params = this.props.params;
+    const images = [
+      {
+        original: 'http://lorempixel.com/1000/600/nature/1/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/1/',
+        originalClass: 'featured-slide',
+        thumbnailClass: 'featured-thumb',
+        description: 'Optional description...'
+      },
+      {
+        original: 'http://lorempixel.com/1000/600/nature/2/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
+      },
+      {
+        original: 'http://lorempixel.com/1000/600/nature/3/',
+        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
+      }
+    ];
+
+    let style = {
+      bottom: '75px',
+      right: '50px'
+    };
+
+    let divStyle = {
+      position: 'absolute'
+    };
 
     return (
+
+
       <div className="app-page page-campaign">
-        <div className="section">
-          <h5>{Strings.Campaign.FormTitle}</h5>
+        <div className="row section">
+          <div className="input-field col s2">
+              <h5>{Strings.Campaign.FormTitle}</h5>
+          </div>
+          <div className="input-field col s10">
+            <div className="switch">
+              <label>
+                Inactive
+                <input type="checkbox" />
+                <span className="lever"></span>
+                Active
+              </label>
+            </div>
+          </div>
         </div>
-        <div className="divider"></div>
           <div className="row section">
             <form className="col s12">
-              <div className="row">
-                <div className="col s1 m6">
-                  <input name="group1" type="radio" id="test1" />
-                  <label for="test1">Active</label>
-                </div>
-                <div className="col s1 m6">
-                  <input name="group1" type="radio" id="test2" />
-                  <label for="test2">Inactive</label>
-                </div>
-              </div>
               <div className="row">
                 <div className="input-field col s12">
                   <input id="name" type="text" className="validate"/>
@@ -45,7 +86,7 @@ export default React.createClass({
               <div className="row">
                 <div className="input-field col s6">
                   <select>
-                    <option value="" selected>Select one interval</option>
+                    <option value="">Select one interval</option>
                     <option value="1">00:30</option>
                     <option value="2">01:00</option>
                     <option value="3">24:00</option>
@@ -56,7 +97,7 @@ export default React.createClass({
               <div className="row">
                 <div className="input-field col s6">
                   <select>
-                    <option value="" selected>Select one category</option>
+                    <option value="">Select one category</option>
                     <option value="1">Family and Friends</option>
                     <option value="2">Phisical Activity</option>
                     <option value="3">Nutrition</option>
@@ -72,24 +113,16 @@ export default React.createClass({
               </div>
               <div className="divider"></div>
               <div className="row thumbs-container">
-                <div className="col s12 m6">
-                  <div className="card small">
-                    <div className="card-image">
-                      <img src="http://materializecss.com/images/sample-1.jpg" />
-                      <span className="card-title">Card Title</span>
-                    </div>
-                    <div className="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div className="card-action">
-                      <a href="#">This is a link</a>
-                      <a href="#">This is a link</a>
-                    </div>
-                  </div>
-                </div>
+                <ImageGallery
+                   items={images}
+                   autoPlay={true}
+                   slideInterval={4000}
+                   onSlide={this.handleSlide}/>
               </div>
               <div className="row">
-                add
+                <div className="col s4" ><a className="waves-effect waves-light blue btn-large right" onClick={this.handleCancel}>{Strings.Operations.Cancel}</a></div>
+                <div className="col s4" ><a className="waves-effect waves-light blue btn-large">{Strings.Operations.Save}</a></div>
+                <div className="col s4" ><a className="waves-effect waves-light red btn-large left">{Strings.Operations.Delete}</a></div>
               </div>
             </form>
           </div>

@@ -24,6 +24,7 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     },
   Campaign:{
     Title: "Campanhas",
+    TitleList: "Lista de Campanhas",
     FormTitle: "Campanha"
   },
   Operations:{
@@ -32,6 +33,11 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     Save: "Salvar",
     Cancel: "Cancelar",
     Delete: "Excluir"
+  },
+  Login:{
+    LoginAction: "Entrar",
+    LogoutAction: "Sair",
+    FormTitle: "Informe suas Credenciais"
   }
 
 });

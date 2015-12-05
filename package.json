@@ -74,6 +74,9 @@
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
   },
-  "engine": "node 4.1.0",
+  "engine":
+  {
+    "node": "4.1.0"
+  },
   "license": "MIT"
 }

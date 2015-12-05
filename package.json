@@ -35,6 +35,7 @@
     "history": "^1.12.5",
     "imports-loader": "^0.6.5",
     "jquery": "^2.1.4",
+    "jsx-loader": "^0.13.2",
     "keymirror": "^0.1.1",
     "lodash": "^3.10.1",
     "materialize-css": "^0.97.1",

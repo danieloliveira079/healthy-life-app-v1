@@ -33,6 +33,7 @@
     "font-awesome": "^4.4.0",
     "hammerjs": "^2.0.4",
     "history": "^1.12.5",
+    "imports-loader": "^0.6.5",
     "jquery": "^2.1.4",
     "keymirror": "^0.1.1",
     "lodash": "^3.10.1",

@@ -13,7 +13,7 @@ export default React.createClass({
 
     handleParamsClick () {
       const param1 = "123";
-      this.transitionTo(`/campaign/${param1}`);
+      this.transitionTo(`/home/campaign/${param1}`);
     },
 
     render() {

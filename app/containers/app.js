@@ -9,8 +9,8 @@ import Navbar from '../components/navbar';
 import Btn from '../components/fixed-button';
 
 const menuItems = [
-  { name: Strings.Home.Title, route: "/" },
-  { name: Strings.About.Title, route: "/about" }
+  { name: Strings.Home.Title, route: "/home" },
+  { name: Strings.About.Title, route: "/home/about" }
 ];
 
 export default React.createClass({

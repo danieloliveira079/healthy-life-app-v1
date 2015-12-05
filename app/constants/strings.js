@@ -37,7 +37,9 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
   Login:{
     LoginAction: "Entrar",
     LogoutAction: "Sair",
-    FormTitle: "Informe suas Credenciais"
+    FormTitle: "Informe suas Credenciais",
+    SignUpText: "Faça seu cadastro!",
+    PasswordRecovery: "Esqueceu sua senha?"
   }
 
 });

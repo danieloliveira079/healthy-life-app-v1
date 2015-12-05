@@ -38,9 +38,13 @@ export default React.createClass({
   },
 
   render () {
+    let menuStyle = {
+      marginLeft: '20px'
+    };
+
     return (
       <nav className="navbar-component blue">
-        <div className="left">
+        <div className="left" style={menuStyle}>
         <ul id="slide-out" className="side-nav">
           {this.props.children}
         </ul>

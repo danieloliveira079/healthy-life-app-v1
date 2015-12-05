@@ -12,7 +12,8 @@ import NoMatch from './containers/no-match';
 
 export default (
   <Router>
-    <Route path="/" component={Login} />
+    <Route path="/" component={Login} >
+    </Route>
 
     <Route path="/home" component={App}>
       <IndexRoute component={Home}/>

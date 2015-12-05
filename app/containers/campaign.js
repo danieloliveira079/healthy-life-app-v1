@@ -13,7 +13,7 @@ export default React.createClass({
   },
 
   handleCancel(){
-    this.transitionTo("/");
+    this.transitionTo("/home");
   },
 
   componentDidMount(){
@@ -41,19 +41,16 @@ export default React.createClass({
       }
     ];
 
-    let style = {
-      bottom: '75px',
-      right: '50px'
-    };
-
     let divStyle = {
-      position: 'absolute'
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: '50px',
+      padding: '20px'
     };
 
     return (
 
-
-      <div className="app-page page-campaign">
+      <div className="app-page page-campaign white" style={divStyle}>
         <div className="row section">
           <div className="input-field col s2">
               <h5>{Strings.Campaign.FormTitle}</h5>
@@ -74,13 +71,13 @@ export default React.createClass({
               <div className="row">
                 <div className="input-field col s12">
                   <input id="name" type="text" className="validate"/>
-                  <label for="name">Name</label>
+                  <label htmlFor="name">Name</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
                   <textarea id="description" className="materialize-textarea"></textarea>
-                  <label for="description">Description</label>
+                  <label htmlFor="description">Description</label>
                 </div>
               </div>
               <div className="row">
@@ -119,7 +116,7 @@ export default React.createClass({
                    slideInterval={4000}
                    onSlide={this.handleSlide}/>
               </div>
-              <div className="row">
+              <div className="row actions">
                 <div className="col s4"><a className="waves-effect waves-light blue btn-large right" onClick={this.handleCancel}>{Strings.Operations.Cancel}</a></div>
                 <div className="col s4"><a className="waves-effect waves-light blue btn-large">{Strings.Operations.Save}</a></div>
                 <div className="col s4"><a className="waves-effect waves-light red btn-large left">{Strings.Operations.Delete}</a></div>

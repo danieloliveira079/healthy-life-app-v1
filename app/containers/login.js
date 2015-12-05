@@ -71,10 +71,10 @@ export default React.createClass({
                 </div>
                 <div className="row">
                   <div className="input-field col s6 m6 l6">
-                    <p className="margin medium-small"><a href="register.html">Faça seu cadastro!</a></p>
+                    <p className="margin medium-small"><a href="#">{Strings.Login.SignUpText}</a></p>
                   </div>
                   <div className="input-field col s6 m6 l6">
-                      <p className="margin right-align medium-small"><a href="forgot-password.html">Esqueceu sua senha?</a></p>
+                      <p className="margin right-align medium-small"><a href="#">{Strings.Login.PasswordRecovery}</a></p>
                   </div>
                 </div>
               </form>

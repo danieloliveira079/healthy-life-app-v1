@@ -26,8 +26,14 @@ export default React.createClass({
       maxWidth:'400px',
       marginRight: 'auto',
       marginLeft: 'auto',
-      marginTop: '50px',
+      marginTop: '20px',
       marginBottom: '50px'
+    };
+
+    let avatarStyle = {
+      width: '120px',
+      height: '120px',
+      marginTop: '25px'
     };
 
     let headerStyle = {
@@ -47,7 +53,7 @@ export default React.createClass({
                 <div className="row">
                   <div className="input-field col s12 center">
                     <h5 className="center login-form-text" style={headerStyle}>{Strings.Login.FormTitle}</h5>
-                    <img src={noavatarImage} className="circle responsive-img"/>
+                    <img src={noavatarImage} className="circle responsive-img" style={avatarStyle}/>
                   </div>
                 </div>
                 <div className="row margin">

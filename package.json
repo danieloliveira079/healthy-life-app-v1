@@ -4,11 +4,11 @@
   "description": "",
   "author": "Daniel Oliveira <daniel.oliveira079@gmail.com",
   "scripts": {
+    "dev": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "test": "./node_modules/.bin/jsxhint lib/ spec/ && ./node_modules/.bin/jshint lib/ spec/ && ./node_modules/karma/bin/karma start karma.conf.js",
     "watch-test": "./node_modules/karma/bin/karma start karma.conf.js --auto-watch --no-single-run",
     "build": "./node_modules/.bin/webpack -p",
     "rename-css-bower-dependencies": "find bower_components -name '*.css' | sed -e 'p;s/.css$/.scss/' | xargs -n2 mv",
-    "start": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "postinstall": "bower install"
   },
   "main": "lib/index.js",
@@ -25,6 +25,8 @@
   ],
   "dependencies": {
     "axios": "^0.7.0",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
     "fastclick": "^1.0.6",
     "flux": "^2.1.1",
     "font-awesome": "^4.4.0",

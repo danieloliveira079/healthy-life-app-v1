@@ -3,6 +3,8 @@ import { Link } from 'react-router'
 import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
 
+let noavatarImage = require('../../images/containers/login/noavatar.png');
+
 export default React.createClass({
   mixins: [ FluxMixins, RouterMixins ],
 
@@ -28,6 +30,10 @@ export default React.createClass({
       marginBottom: '50px'
     };
 
+    let headerStyle = {
+      fontSize: '20px'
+    };
+
     return (
       <div className="container grey lighten-4" style={style}>
         <nav className="navbar-component blue">
@@ -40,8 +46,8 @@ export default React.createClass({
               <form className="login-form">
                 <div className="row">
                   <div className="input-field col s12 center">
-
-                    <h5 className="center login-form-text">{Strings.Login.FormTitle}</h5>
+                    <h5 className="center login-form-text" style={headerStyle}>{Strings.Login.FormTitle}</h5>
+                    <img src={noavatarImage} className="circle responsive-img"/>
                   </div>
                 </div>
                 <div className="row margin">

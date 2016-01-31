@@ -1,2 +1,1 @@
-# healthy-life-app
-Healthy Life Application
+# Healthy Life Application

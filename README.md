@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # react-webpack-template
 
 This is my template for building a ReactJS app with all the boilerplate you need to get started:
@@ -37,3 +38,6 @@ output: {
 * Continuously run tests on file changes `npm run watch-test`
 * Run tests: `npm test`
 * Build `npm run build`
+=======
+# Healthy Life Application
+>>>>>>> 404fab20559b4de3b16c109ea664c6007247365b

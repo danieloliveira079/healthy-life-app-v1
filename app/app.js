@@ -7,9 +7,7 @@ import { render } from 'react-dom'
 import FastClick from 'fastclick';
 import createHistory from 'history/lib/createHashHistory';
 
-
 import routes from './routes';
-
 
 import './styles/animate.css';
 import 'materialize-css/bin/materialize.css';
@@ -17,9 +15,7 @@ import 'materialize-css/bin/materialize.js';
 import 'react-select/dist/default.css';
 import './styles/app.scss';
 
-
 (() => {
-
   var history = createHistory({
     queryKey: false
   });

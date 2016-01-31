@@ -8,12 +8,14 @@ export default React.createClass({
 
   propTypes: {
     title: React.PropTypes.string,
-    onRightClick: React.PropTypes.func
+    onRightClick: React.PropTypes.func,
+    isLoggedIn: React.PropTypes.bool
   },
 
   getInitialState () {
     return {
-      title: this.props.title
+      title: this.props.title,
+      isLoggedIn: this.props.isLoggedIn
     };
   },
 
@@ -37,25 +39,44 @@ export default React.createClass({
     this.props.onRightClick();
   },
 
-  render () {
+  renderLoggedIn(){
     let menuStyle = {
       marginLeft: '20px'
     };
-
     return (
       <nav className="navbar-component blue">
         <div className="left" style={menuStyle}>
-        <ul id="slide-out" className="side-nav">
-          {this.props.children}
-        </ul>
-        <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="mdi-navigation-menu"></i></a>
-        <a href="#" className="brand-logo center">{this.state.title}</a>
+          <ul id="slide-out" className="side-nav">
+            {this.props.children}
+          </ul>
+          <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="mdi-navigation-menu"></i></a>
+          <a href="#" className="brand-logo center">{this.state.title}</a>
         </div>
         <div className="right login-info">
           <span><Link to='/'>{Strings.Login.LogoutAction}</Link></span>
         </div>
-      </nav>
-    );
+    </nav>
+    )
+  },
+
+  renderNotLoggedIn(){
+    let menuStyle = {
+      marginLeft: '20px'
+    };
+    return (
+      <nav className="navbar-component blue">
+        <div className="left" style={menuStyle}>
+          <a href="#" className="brand-logo center">{this.state.title}</a>
+        </div>
+    </nav>
+    )
+  },
+
+  render () {
+    if (this.state.isLoggedIn) {
+      return (this.renderLoggedIn())  
+    }
+    return (this.renderNotLoggedIn())
   }
 
 });

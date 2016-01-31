@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-
 import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
 
 import Navbar from '../components/navbar';
 import Btn from '../components/fixed-button';
+
+import auth from '../../services/auth';
 
 const menuItems = [
   { name: Strings.Home.Title, route: "/home" },
@@ -19,9 +20,21 @@ export default React.createClass({
 
   getInitialState () {
     return {
-      pageTitle: "Home"
+      pageTitle: "Healthy Life",
+      loggedIn: auth.loggedIn()
     }
   },
+
+  updateAuth(loggedIn) {
+    this.setState({
+      loggedIn: loggedIn
+    })
+  },
+
+  componentWillMount() {
+   auth.onChange = this.updateAuth
+   auth.login()
+ },
 
   onMenuItemClick (menuItem) {
   /*  if (menuItem.name === Strings.App.Exit) {
@@ -38,6 +51,9 @@ export default React.createClass({
 
   componentDidMount () {
     this.checkNavbarTitle();
+    if (!this.state.isLoggedIn) {
+      this.transitionTo("/login")
+    }
   },
 
   checkNavbarTitle () {
@@ -50,7 +66,7 @@ export default React.createClass({
         this.refs.navbar.updateTitle(Strings.Campaign.Title);
     }
     else {
-      this.refs.navbar.updateTitle(Strings.Home.Title);
+      this.refs.navbar.updateTitle(Strings.App.Name);
     }
   },
 
@@ -84,7 +100,7 @@ export default React.createClass({
     return (
       <div className="app">
         <div className="wrap grey lighten-4" >
-            <Navbar ref="navbar" title={this.state.pageTitle} onRightClick={this.onRightClick}>
+            <Navbar ref="navbar" isLoggedIn={this.state.loggedIn} title={this.state.pageTitle} onRightClick={this.onRightClick}>
               {menu}
             </Navbar>
 

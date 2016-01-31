@@ -12,6 +12,10 @@ export default React.createClass({
     this.transitionTo("/");
   },
 
+  handleLogin(){
+    this.transitionTo("/");
+  },
+
   componentDidMount(){
 
   },
@@ -42,11 +46,6 @@ export default React.createClass({
 
     return (
       <div className="container grey lighten-4" style={style}>
-        <nav className="navbar-component blue">
-          <div className="title center brand-logo">
-            {Strings.App.Name}
-          </div>
-        </nav>
         <div id="login-page" className="row" style={styleLogin}>
             <div className="col s12 z-depth-6 card-panel">
               <form className="login-form">
@@ -78,7 +77,7 @@ export default React.createClass({
                 </div>
                 <div className="row">
                   <div className="input-field col s12">
-                    <Link to='/home' className="btn-large waves-effect waves-light blue col s12">{Strings.Login.LoginAction}</Link>
+                    <Link to='/' onClick={this.handleLogin} className="btn-large waves-effect waves-light blue col s12">{Strings.Login.LoginAction}</Link>
                   </div>
                 </div>
                 <div className="row">

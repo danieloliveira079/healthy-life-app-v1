@@ -1,45 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+
 import { Strings } from '../constants';
 
-let noavatarImage = require('../../images/containers/login/noavatar.png');
+const noavatarImage = require('../../images/containers/login/noavatar.png');
 
-export default React.createClass({
+class Login extends Component {
 
-  handleCancel(){
-    this.transitionTo("/");
-  },
+  componentDidMount () {
 
-  handleLogin(){
-    this.transitionTo("/");
-  },
+  }
 
-  componentDidMount(){
+  handleLogin () {
+    this.props.history.push('home');
+  }
 
-  },
-
-  render() {
-    let style ={
+  render () {
+    const style = {
       height: '100%',
-      width: '100%'
+      width: '100%',
     };
 
-    let styleLogin = {
-      maxWidth:'400px',
+    const styleLogin = {
+      maxWidth: '400px',
       marginRight: 'auto',
       marginLeft: 'auto',
       marginTop: '20px',
-      marginBottom: '50px'
+      marginBottom: '50px',
     };
 
-    let avatarStyle = {
+    const avatarStyle = {
       width: '120px',
       height: '120px',
-      marginTop: '25px'
+      marginTop: '25px',
     };
 
-    let headerStyle = {
-      fontSize: '20px'
+    const headerStyle = {
+      fontSize: '20px',
     };
 
     return (
@@ -75,7 +73,12 @@ export default React.createClass({
                 </div>
                 <div className="row">
                   <div className="input-field col s12">
-                    <Link to='/' onClick={this.handleLogin} className="btn-large waves-effect waves-light blue col s12">{Strings.Login.LoginAction}</Link>
+                    <Link to="/"
+                      onClick={::this.handleLogin}
+                      className="btn-large waves-effect waves-light blue col s12"
+                    >
+                      {Strings.Login.LoginAction}
+                  </Link>
                   </div>
                 </div>
                 <div className="row">
@@ -92,5 +95,8 @@ export default React.createClass({
     </div>
     );
   }
+}
 
-});
+export default connect(() => {
+  return { };
+})(Login);

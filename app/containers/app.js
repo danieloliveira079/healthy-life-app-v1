@@ -92,7 +92,7 @@ export default React.createClass({
         <footer className="page-footer blue">
          <div className="footer-copyright">
             <div className="container center">
-            {Strings.App.FooterText} {Strings.App.Name}
+              {Strings.App.FooterText} {Strings.App.Name}
             </div>
           </div>
         </footer>

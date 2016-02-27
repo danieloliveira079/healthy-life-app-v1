@@ -13,7 +13,7 @@ export default React.createClass({
       this.transitionTo(`/home/campaign/${param1}`);
     },
 
-    render() {
+    render () {
       let style = {
         top: '75px',
         left: '180px'
@@ -23,7 +23,7 @@ export default React.createClass({
         <div className="app-page page-home">
           <div className="section">
             <div className="row">
-              <div className="col s6">  <h4>{Strings.Campaign.TitleList}</h4></div>
+              <div className="col s6"><h4>{Strings.Campaign.TitleList}</h4></div>
               <div className="col s6"><a className="waves-effect waves-light blue btn-large right" onClick={this.handleParamsClick}>{Strings.Operations.New}</a></div>
             </div>
           </div>

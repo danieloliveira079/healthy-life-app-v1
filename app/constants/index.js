@@ -1,8 +1,4 @@
-import Status from './status';
-import Strings from './strings';
+import strings from './strings';
 
 
-export default {
-  Status: Status,
-  Strings: Strings
-}
+export const Strings = strings;

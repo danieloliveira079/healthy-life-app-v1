@@ -1,53 +1,52 @@
-import React from 'react';
-import { Strings } from '../constants';
-import Btn from '../components/fixed-button';
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import $ from 'jquery';
 import ImageGallery from 'react-image-gallery';
 
-export default React.createClass({
+import { Strings } from '../constants';
 
-  handleSlide: function(index) {
-    console.log('Slid to ' + index);
-  },
 
-  handleCancel(){
-    this.transitionTo("/home");
-  },
+class Campaign extends Component {
 
-  componentDidMount(){
+  componentDidMount () {
     $('select').material_select();
-  },
+  }
 
-  render() {
-    const { query } = this.props.location;
-    const params = this.props.params;
+  handleSlide (index) {
+    console.log('Slid to ' + index);
+  }
+
+  handleCancel () {
+    this.props.history.push('home');
+  }
+
+  render () {
     const images = [
       {
         original: 'http://lorempixel.com/1000/600/nature/1/',
         thumbnail: 'http://lorempixel.com/250/150/nature/1/',
         originalClass: 'featured-slide',
         thumbnailClass: 'featured-thumb',
-        description: 'Optional description...'
+        description: 'Optional description...',
       },
       {
         original: 'http://lorempixel.com/1000/600/nature/2/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/2/'
+        thumbnail: 'http://lorempixel.com/250/150/nature/2/',
       },
       {
         original: 'http://lorempixel.com/1000/600/nature/3/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/3/'
-      }
+        thumbnail: 'http://lorempixel.com/250/150/nature/3/',
+      },
     ];
 
-    let divStyle = {
+    const divStyle = {
       marginLeft: 'auto',
       marginRight: 'auto',
       marginTop: '50px',
-      padding: '20px'
+      padding: '20px',
     };
 
     return (
-
       <div className="app-page page-campaign white" style={divStyle}>
         <div className="row section">
           <div className="input-field col s2">
@@ -109,13 +108,14 @@ export default React.createClass({
               <div className="divider"></div>
               <div className="row thumbs-container">
                 <ImageGallery
-                   items={images}
-                   autoPlay={true}
-                   slideInterval={4000}
-                   onSlide={this.handleSlide}/>
+                  items={images}
+                  autoPlay={true}
+                  slideInterval={4000}
+                  onSlide={this.handleSlide.bind(this)}
+                />
               </div>
               <div className="row actions">
-                <div className="col s4"><a className="waves-effect waves-light blue btn-large right" onClick={this.handleCancel}>{Strings.Operations.Cancel}</a></div>
+                <div className="col s4"><a className="waves-effect waves-light blue btn-large right" onClick={::this.handleCancel}>{Strings.Operations.Cancel}</a></div>
                 <div className="col s4"><a className="waves-effect waves-light blue btn-large">{Strings.Operations.Save}</a></div>
                 <div className="col s4"><a className="waves-effect waves-light red btn-large left">{Strings.Operations.Delete}</a></div>
               </div>
@@ -124,5 +124,8 @@ export default React.createClass({
       </div>
     );
   }
+}
 
-});
+export default connect(() => {
+  return { };
+})(Campaign);

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { Strings } from '../constants';
 
@@ -7,90 +8,75 @@ import Navbar from '../components/navbar';
 import auth from '../../services/auth';
 
 const menuItems = [
-  { name: Strings.Home.Title, route: "/home" },
-  { name: Strings.About.Title, route: "/home/about" }
+  { name: Strings.Home.Title, route: '/home' },
+  { name: Strings.About.Title, route: '/home/about' },
 ];
 
 export default React.createClass({
 
   getInitialState () {
     return {
-      pageTitle: "Healthy Life",
-      loggedIn: auth.loggedIn()
-    }
+      pageTitle: 'Healthy Life',
+      loggedIn: auth.loggedIn(),
+    };
   },
 
-  updateAuth(loggedIn) {
-    this.setState({
-      loggedIn: loggedIn
-    })
+  componentWillMount () {
+    auth.onChange = this.updateAuth;
+    auth.login();
   },
-
-  componentWillMount() {
-   auth.onChange = this.updateAuth
-   auth.login()
- },
-
-  onMenuItemClick (menuItem) {
-  /*  if (menuItem.name === Strings.App.Exit) {
-      LoginActions.logout();
-
-      this.transitionTo("/login", {}, { logout: 1 });
-      return;
-    }
-*/
-    this.transitionTo(menuItem.route);
-  },
-
-  onRightClick(){},
 
   componentDidMount () {
     this.checkNavbarTitle();
     if (!this.state.isLoggedIn) {
-      this.transitionTo("/login")
-    }
-  },
-
-  checkNavbarTitle () {
-    const pathName = this.props.location;
-    console.log(pathName);
-
-    if (/\/about/.test(pathName.pathname)) {
-        this.refs.navbar.updateTitle(Strings.About.Title);
-    } else if (/\/campaign/.test(pathName.pathname)) {
-        this.refs.navbar.updateTitle(Strings.Campaign.Title);
-    }
-    else {
-      this.refs.navbar.updateTitle(Strings.App.Name);
+      this.props.history.push('/login');
     }
   },
 
   componentDidUpdate () {
-      this.checkNavbarTitle();
+    this.checkNavbarTitle();
+  },
+
+  onMenuItemClick (menuItem) {
+    this.props.history.push(menuItem.route);
+  },
+
+  onRightClick () { },
+
+  checkNavbarTitle () {
+    const pathName = this.props.location;
+
+    if (/\/about/.test(pathName.pathname)) {
+      this.refs.navbar.updateTitle(Strings.About.Title);
+    } else if (/\/campaign/.test(pathName.pathname)) {
+      this.refs.navbar.updateTitle(Strings.Campaign.Title);
+    } else {
+      this.refs.navbar.updateTitle(Strings.App.Name);
+    }
+  },
+
+  updateAuth (loggedIn) {
+    this.setState({
+      loggedIn,
+    });
   },
 
   render () {
     const pathName = this.props.location;
 
     const menu = menuItems.map((item, index) => {
-      let itemClassName = "";
-
-      if (item.route === "/" && /\/home/.test(pathName)) {
-        itemClassName += "active";
-      }
-      else if (item.route === "about" && /\/about/.test(pathName)) {
-        itemClassName += "active";
-      }
-
-      if (item.name === Strings.App.Exit) itemClassName = " menu-exit";
+      const itemClassName = classNames(
+        { 'active': item.route === '/' && /\/home/.test(pathName) },
+        { 'active': item.route === 'about' && /\/about/.test(pathName) },
+        { 'menu-exit': item.name === Strings.App.Exit },
+      );
 
       return (
         <li key={index} className={itemClassName}>
           <a onClick={this.onMenuItemClick.bind(null, item)}>{item.name}</a>
         </li>
-      )
+      );
     });
-    const footerText = `©  ${new Date().getFullYear()} ${Strings.App.Name}`;
 
     return (
       <div className="app">
@@ -112,6 +98,6 @@ export default React.createClass({
         </footer>
       </div>
     );
-  }
+  },
 
 });

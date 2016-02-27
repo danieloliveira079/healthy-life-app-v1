@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.8.1",
     "body-parser": "^1.14.1",
+    "classnames": "^2.2.3",
     "express": "^4.13.3",
     "font-awesome": "^4.4.0",
     "hammerjs": "^2.0.4",
@@ -63,8 +64,7 @@
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
   },
-  "engines":
-  {
+  "engines": {
     "node": "4.1.0"
   },
   "license": "MIT"

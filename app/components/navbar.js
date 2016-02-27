@@ -1,48 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router'
+import React, { Component } from 'react';
+import { Link } from 'react-router';
+import $ from 'jquery';
 
 import { Strings } from '../constants';
 
 
-export default React.createClass({
+export default class Navbar extends Component {
 
-  propTypes: {
+  static propTypes = {
     title: React.PropTypes.string,
     onRightClick: React.PropTypes.func,
-    isLoggedIn: React.PropTypes.bool
-  },
+    isLoggedIn: React.PropTypes.bool,
+  };
 
-  getInitialState () {
-    return {
+  constructor (props) {
+    super(props);
+
+    this.state = {
       title: this.props.title,
-      isLoggedIn: this.props.isLoggedIn
+      isLoggedIn: this.props.isLoggedIn,
     };
-  },
+  }
 
   componentDidMount () {
     $('.button-collapse').sideNav({
       menuWidth: 300,     // Default is 240
       edge: 'left',      // Choose the horizontal origin
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
-  },
-
-  updateTitle (title) {
-    if (this.state.title === title) return;
-
-    this.setState({ title: title });
-  },
+  }
 
   onRightClick () {
     if (!this.props.onRightClick) return;
 
     this.props.onRightClick();
-  },
+  }
 
-  renderLoggedIn(){
-    let menuStyle = {
-      marginLeft: '20px'
+  updateTitle (title) {
+    if (this.state.title === title) return;
+
+    this.setState({ title });
+  }
+
+  renderLoggedIn () {
+    const menuStyle = {
+      marginLeft: '20px',
     };
+
     return (
       <nav className="navbar-component blue">
         <div className="left" style={menuStyle}>
@@ -53,30 +57,31 @@ export default React.createClass({
           <a href="#" className="brand-logo center">{this.state.title}</a>
         </div>
         <div className="right login-info">
-          <span><Link to='/'>{Strings.Login.LogoutAction}</Link></span>
+          <span><Link to="/">{Strings.Login.LogoutAction}</Link></span>
         </div>
-    </nav>
-    )
-  },
+      </nav>
+    );
+  }
 
-  renderNotLoggedIn(){
-    let menuStyle = {
-      marginLeft: '20px'
+  renderNotLoggedIn () {
+    const menuStyle = {
+      marginLeft: '20px',
     };
+
     return (
       <nav className="navbar-component blue">
         <div className="left" style={menuStyle}>
           <a href="#" className="brand-logo center">{this.state.title}</a>
         </div>
-    </nav>
-    )
-  },
+      </nav>
+    );
+  }
 
   render () {
     if (this.state.isLoggedIn) {
-      return (this.renderLoggedIn())  
+      return (this.renderLoggedIn());
     }
-    return (this.renderNotLoggedIn())
-  }
 
-});
+    return (this.renderNotLoggedIn());
+  }
+}

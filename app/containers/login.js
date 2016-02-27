@@ -11,7 +11,6 @@ class Login extends Component {
 
   componentWillReceiveProps (nextProps) {
     const { auth, history } = nextProps;
-
     if (auth.isLoggedIn) {
       history.push('home');
     }
@@ -85,14 +84,14 @@ class Login extends Component {
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-social-person-outline prefix"></i>
-                    <input ref="email" className="validate" id="email" type="email" />
+                    <input ref="email" className="validate" id="email" type="email" defaultValue="admin@example.com" />
                     <label htmlFor="email" data-error="wrong" data-success="right" className="center-align">Email</label>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input ref="password" id="password" type="password" />
+                    <input ref="password" id="password" type="password" defaultValue="password" />
                     <label htmlFor="password">Senha</label>
                   </div>
                 </div>

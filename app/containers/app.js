@@ -17,7 +17,7 @@ export default React.createClass({
   getInitialState () {
     return {
       pageTitle: 'Healthy Life',
-      loggedIn: auth.loggedIn(),
+      isLoggedIn: auth.loggedIn(),
     };
   },
 
@@ -27,14 +27,10 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    this.checkNavbarTitle();
+    debugger;
     if (!this.state.isLoggedIn) {
       this.props.history.push('/login');
     }
-  },
-
-  componentDidUpdate () {
-    this.checkNavbarTitle();
   },
 
   onMenuItemClick (menuItem) {
@@ -42,18 +38,6 @@ export default React.createClass({
   },
 
   onRightClick () { },
-
-  checkNavbarTitle () {
-    const pathName = this.props.location;
-
-    if (/\/about/.test(pathName.pathname)) {
-      this.refs.navbar.updateTitle(Strings.About.Title);
-    } else if (/\/campaign/.test(pathName.pathname)) {
-      this.refs.navbar.updateTitle(Strings.Campaign.Title);
-    } else {
-      this.refs.navbar.updateTitle(Strings.App.Name);
-    }
-  },
 
   updateAuth (loggedIn) {
     this.setState({
@@ -81,7 +65,7 @@ export default React.createClass({
     return (
       <div className="app">
         <div className="wrap grey lighten-4" >
-            <Navbar ref="navbar" isLoggedIn={this.state.loggedIn} title={this.state.pageTitle} onRightClick={this.onRightClick}>
+            <Navbar ref="navbar" title={this.state.pageTitle} onRightClick={this.onRightClick}>
               {menu}
             </Navbar>
 

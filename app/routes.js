@@ -8,18 +8,24 @@ import Campaign from './containers/campaign';
 import Login from './containers/login'
 import NoMatch from './containers/no-match';
 
+import auth from '../services/auth';
 
-function requireAuth(nextState, replaceState) {
-  if (!auth.loggedIn())
-    replaceState({ nextPathname: nextState.location.pathname }, '/login')
+
+function requireAuth (nextState, replaceState) {
+  console.log('requireAuth');
+  if (!auth.loggedIn()) {
+    // replaceState({ nextPathname: nextState.location.pathname }, '/login');
+  }
 }
 
 
 export default (
   <Route>
-    <Route path="/" component={App} >
+    <Route path="/" component={App}>
+      <IndexRoute component={Home} />
+
       <Route path="login" component={Login} />
-      <Route path="home" component={Home} onEnter={requireAuth}/>
+      <Route path="home" component={Home} onEnter={requireAuth} />
       <Route path="campaign/:param1" component={Campaign} onEnter={requireAuth}/>
       <Route path="about" component={About} />
       <Route path="about/:param1/test/:param2" component={About} />

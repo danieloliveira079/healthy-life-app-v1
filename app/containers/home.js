@@ -1,11 +1,8 @@
 import React from 'react';
-import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
 import Btn from '../components/fixed-button';
 
 export default React.createClass({
-
-    mixins: [ FluxMixins, RouterMixins ],
 
     handleQueryClick () {
       this.transitionTo("/campaign", { q1: 1});

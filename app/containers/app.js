@@ -1,11 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router';
 
-import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
 
 import Navbar from '../components/navbar';
-import Btn from '../components/fixed-button';
 
 import auth from '../../services/auth';
 
@@ -15,8 +12,6 @@ const menuItems = [
 ];
 
 export default React.createClass({
-
-  mixins: [ FluxMixins, RouterMixins ],
 
   getInitialState () {
     return {

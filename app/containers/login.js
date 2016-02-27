@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router'
-import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
 
 let noavatarImage = require('../../images/containers/login/noavatar.png');
 
 export default React.createClass({
-  mixins: [ FluxMixins, RouterMixins ],
 
   handleCancel(){
     this.transitionTo("/");

@@ -1,12 +1,10 @@
 import React from 'react';
-import { FluxMixins, RouterMixins } from '../mixins';
 import { Strings } from '../constants';
 import Btn from '../components/fixed-button';
 
 import ImageGallery from 'react-image-gallery';
 
 export default React.createClass({
-  mixins: [ FluxMixins, RouterMixins ],
 
   handleSlide: function(index) {
     console.log('Slid to ' + index);

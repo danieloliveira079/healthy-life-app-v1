@@ -16,8 +16,6 @@ const menuItems = [
 
 class App extends Component {
 
-
-
   componentDidMount () {
     if (!this.props.auth.isLoggedIn) {
       this.props.history.push('/login');
@@ -51,7 +49,7 @@ class App extends Component {
     return (
       <div className="app">
         <div className="wrap grey lighten-4" >
-            <Navbar ref="navbar" onRightClick={this.onRightClick}>
+            <Navbar ref="navbar"  onRightClick={this.onRightClick}>
               {menu}
             </Navbar>
 

@@ -8,7 +8,14 @@ import { Strings } from '../constants';
 import Campaign from '../components/campaign';
 
 class Home extends Component {
-  
+
+  componentWillReceiveProps (nextProps) {
+    const { auth, history } = nextProps;
+    if (!auth.isLoggedIn) {
+      history.push('login');
+    }
+  }
+
   componentWillMount () {
     this.props.dispatch(fetchCampaigns());
   }
@@ -63,6 +70,7 @@ class Home extends Component {
 
 export default connect((state) => {
   return {
+    auth: state.auth,
     campaignList: state.campaignList,
     isLoggedIn: state.isLoggedIn
   };

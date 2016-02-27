@@ -6,7 +6,7 @@ import { Strings } from '../constants';
 export default class Campaign extends Component {
   static propTypes = {
     campaign: PropTypes.object.isRequired,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
   };
 
   render () {
@@ -28,7 +28,9 @@ export default class Campaign extends Component {
               <a><i className="material-icons small">person_pin</i>15</a>
               <a><i className="material-icons small">picture_in_picture</i>6</a>
               <a><i className="material-icons small">av_timer</i>{campaign.interval}</a>
-              <a onClick={onClick}><i className="material-icons small">mode_edit</i>{Strings.Operations.Edit}</a>
+              <a onClick={() => { onClick(campaign.id); }}>
+                <i className="material-icons small">mode_edit</i>{Strings.Operations.Edit}
+              </a>
             </div>
           </div>
         </div>

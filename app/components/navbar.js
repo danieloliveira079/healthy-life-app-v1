@@ -9,13 +9,6 @@ import { Strings } from '../constants';
 
 class Navbar extends Component {
 
-  componentWillReceiveProps (nextProps) {
-    const { auth, history } = nextProps;
-    if (auth.isLoggedIn) {
-      //history.push('home');
-    }
-  }
-
   handleLogout () {
     const { dispatch, auth } = this.props;
 

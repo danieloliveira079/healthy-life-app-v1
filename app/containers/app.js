@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import classNames from 'classnames';
 
 import { Strings } from '../constants';
@@ -12,38 +14,22 @@ const menuItems = [
   { name: Strings.About.Title, route: '/home/about' },
 ];
 
-export default React.createClass({
+class App extends Component {
 
-  getInitialState () {
-    return {
-      pageTitle: 'Healthy Life',
-      isLoggedIn: auth.loggedIn(),
-    };
-  },
 
-  componentWillMount () {
-    auth.onChange = this.updateAuth;
-    auth.login();
-  },
 
   componentDidMount () {
-    debugger;
-    if (!this.state.isLoggedIn) {
+    if (!this.props.auth.isLoggedIn) {
       this.props.history.push('/login');
     }
-  },
+  }
 
   onMenuItemClick (menuItem) {
     this.props.history.push(menuItem.route);
-  },
+  }
 
-  onRightClick () { },
+  onRightClick () { }
 
-  updateAuth (loggedIn) {
-    this.setState({
-      loggedIn,
-    });
-  },
 
   render () {
     const pathName = this.props.location;
@@ -65,7 +51,7 @@ export default React.createClass({
     return (
       <div className="app">
         <div className="wrap grey lighten-4" >
-            <Navbar ref="navbar" title={this.state.pageTitle} onRightClick={this.onRightClick}>
+            <Navbar ref="navbar" onRightClick={this.onRightClick}>
               {menu}
             </Navbar>
 
@@ -82,6 +68,11 @@ export default React.createClass({
         </footer>
       </div>
     );
-  },
+  }
+}
 
-});
+export default connect((state) => {
+  return {
+    auth: state.auth,
+  };
+})(App);

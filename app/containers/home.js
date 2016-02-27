@@ -8,13 +8,7 @@ import { Strings } from '../constants';
 import Campaign from '../components/campaign';
 
 class Home extends Component {
-  componentWillReceiveProps (nextProps) {
-    const { isLoggedIn, history } = nextProps;
-    if (!isLoggedIn) {
-      //history.push('login');
-    }
-  }
-
+  
   componentWillMount () {
     this.props.dispatch(fetchCampaigns());
   }

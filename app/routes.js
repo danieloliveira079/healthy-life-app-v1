@@ -7,13 +7,13 @@ import Campaign from './containers/campaign';
 import Login from './containers/login';
 import NoMatch from './containers/no-match';
 
-import auth from '../services/auth';
+// import auth from '../services/auth';
 
 
-function requireAuth (nextState, replaceState) {
-  if (!auth.loggedIn()) {
-    // replaceState({ nextPathname: nextState.location.pathname }, '/login');
-  }
+function requireAuth (/* nextState, replaceState */) {
+  // if (!auth.loggedIn()) {
+  //   replaceState({ nextPathname: nextState.location.pathname }, '/login');
+  // }
 }
 
 

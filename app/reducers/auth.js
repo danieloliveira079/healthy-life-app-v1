@@ -6,8 +6,6 @@ import {
 
 
 const INITIAL_STATE = {
-  schools: [],
-  errors: {},
   error: null,
   loginError: false,
   isFetching: false,

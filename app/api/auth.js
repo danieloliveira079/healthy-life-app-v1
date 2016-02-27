@@ -1,13 +1,14 @@
 import ApiClient from './api-client';
 
-const serviceUrl = 'api/auth';
+const serviceUrl = 'sessions';
 
 
 export async function login (payload) {
-  const body = Object
-    .keys(payload)
-    .map(prop => `${prop}=${payload[prop]}`)
-    .join('&');
+  const body = {
+    user: {
+      ...payload,
+    },
+  };
 
   const options = {
     url: serviceUrl,
@@ -17,10 +18,7 @@ export async function login (payload) {
   localStorage.clear();
   const { data } = await ApiClient.post(options);
 
-  const user = JSON.parse(data.user);
-  localStorage.username = user.username;
-
-  ApiClient.setAccessToken(data);
+  ApiClient.setAccessTokenAndUserEmail(data);
 
   return data;
 }

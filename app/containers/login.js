@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+
+import { login } from '../actions/auth';
 
 import { Strings } from '../constants';
 
@@ -8,15 +9,45 @@ const noavatarImage = require('../../images/containers/login/noavatar.png');
 
 class Login extends Component {
 
-  componentDidMount () {
+  componentWillReceiveProps (nextProps) {
+    const { auth, history } = nextProps;
 
+    if (auth.isLoggedIn) {
+      history.push('home');
+    }
   }
 
   handleLogin () {
-    this.props.history.push('home');
+    const { dispatch, auth } = this.props;
+    const { email, password } = this.refs;
+
+    if (auth.isFetching) {
+      return;
+    }
+
+    dispatch(login({
+      email: email.value,
+      password: password.value,
+    }));
+  }
+
+  renderErrorMessage ({ loginError }) {
+    if (!loginError) {
+      return null;
+    }
+
+    return (
+      <div className="row">
+        <div className="col s12">
+          <span className="red-text text-darken-2">Email ou senha inválidos!</span>
+        </div>
+      </div>
+    );
   }
 
   render () {
+    const { auth } = this.props;
+
     const style = {
       height: '100%',
       width: '100%',
@@ -54,14 +85,14 @@ class Login extends Component {
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-social-person-outline prefix"></i>
-                    <input className="validate" id="email" type="email" />
+                    <input ref="email" className="validate" id="email" type="email" />
                     <label htmlFor="email" data-error="wrong" data-success="right" className="center-align">Email</label>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input id="password" type="password" />
+                    <input ref="password" id="password" type="password" />
                     <label htmlFor="password">Senha</label>
                   </div>
                 </div>
@@ -71,14 +102,12 @@ class Login extends Component {
                       <label htmlFor="remember-me">Mantenha-me conectado</label>
                   </div>
                 </div>
+                {this.renderErrorMessage(auth)}
                 <div className="row">
                   <div className="input-field col s12">
-                    <Link to="/"
-                      onClick={::this.handleLogin}
-                      className="btn-large waves-effect waves-light blue col s12"
-                    >
+                    <a className="btn-large waves-effect waves-light blue col s12" onClick={::this.handleLogin}>
                       {Strings.Login.LoginAction}
-                  </Link>
+                    </a>
                   </div>
                 </div>
                 <div className="row">
@@ -97,6 +126,8 @@ class Login extends Component {
   }
 }
 
-export default connect(() => {
-  return { };
+export default connect((state) => {
+  return {
+    auth: state.auth,
+  };
 })(Login);

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import moment from 'moment';
 import {
   BadRequestError,
   InternalServerError,
@@ -38,33 +37,18 @@ class ApiClient {
     return this.request(options);
   }
 
-  log () {
-    if (!arguments) {
-      return;
-    }
-    if (!localStorage.log) {
-      return;
-    }
-
-    /* eslint no-console:0 */
-    console.log('LOGGER', arguments);
-  }
-
   async request (options) {
     try {
       options.url = (this.baseUrl || '') + (options.url || '');
       options.headers = options.headers || {};
 
-      this.log('checking refresh token..');
-      await this.checkRefreshToken();
-      this.log('refresh token has been checked');
-
       const accessToken = this.getAccessToken();
-      if (accessToken) {
-        options.headers.Authorization = `Bearer ${accessToken}`;
+      const userEmail = this.getUserEmail();
+      if (accessToken && userEmail) {
+        options.headers['X-Auth-Token'] = accessToken;
+        options.headers['X-User-Email'] = userEmail;
       }
 
-      this.log('send request with options', options);
       return await axios({ ...options });
     } catch (err) {
       if (!err) {
@@ -91,54 +75,16 @@ class ApiClient {
     return localStorage.accessToken;
   }
 
-  setAccessToken (data) {
-    /* eslint camelcase:0 */
-    const { access_token, expires_in, refresh_token } = data;
-
-    localStorage.accessToken = access_token;
-    localStorage.refreshToken = refresh_token;
-    localStorage.expiresAt = moment()
-      .add(expires_in || 3599, 'seconds')
-      .toJSON();
+  getUserEmail () {
+    return localStorage.userEmail;
   }
 
-  async checkRefreshToken () {
-    if (!localStorage.refreshToken || !localStorage.expiresAt) {
-      return Promise.resolve();
-    }
+  setAccessTokenAndUserEmail (data) {
+    /* eslint camelcase:0 */
+    const { auth_token, user_email } = data;
 
-    const expiresAt = moment(localStorage.expiresAt, 'YYYY-MM-DDTHH:mm:ssZ');
-    const isExpired = expiresAt.subtract(5, 'minutes').isBefore(moment());
-
-    if (!isExpired) {
-      this.log('checkRefreshToken: token is not expired yet.');
-      return Promise.resolve();
-    }
-
-    this.log('checkRefreshToken: refreshing token... ');
-    localStorage.expiresAt = '';
-
-    let payload = {
-      grant_type: 'refresh_token',
-      refresh_token: localStorage.refreshToken,
-    };
-
-    payload = Object
-      .keys(payload)
-      .map(prop => `${prop}=${payload[prop]}`)
-      .join('&');
-
-    const { data } = await axios({
-      data: payload,
-      headers: {},
-      method: 'post',
-      url: `${this.baseUrl}api/auth`,
-    });
-
-    this.log('checkRefreshToken: accessToken has just been renewed!', data);
-    this.setAccessToken(data);
-
-    return Promise.resolve();
+    localStorage.accessToken = auth_token;
+    localStorage.userEmail = user_email;
   }
 }
 

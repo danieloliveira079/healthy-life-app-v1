@@ -26,7 +26,18 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
   Campaign: {
     Title: 'Campanhas',
     TitleList: 'Lista de Campanhas',
-    FormTitle: 'Campanha',
+    FormTitle: 'Detalhes da Campanha',
+    FormFields: {
+      Status:{
+        Active: "Ativa",
+        Inactive: "Desativada"
+      },
+      Title: "Título",
+      Description: "Descrição",
+      Interval: "Selecione um Intervalo",
+      Category: "Selecione uma Categoria",
+      Slides: "Slides"
+    }
   },
 
   Operations: {

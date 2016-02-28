@@ -11,7 +11,7 @@ import auth from '../../services/auth';
 
 const menuItems = [
   { name: Strings.Home.Title, route: '/home' },
-  { name: Strings.About.Title, route: '/home/about' },
+  { name: Strings.About.Title, route: '/about' },
 ];
 
 class App extends Component {
@@ -25,9 +25,6 @@ class App extends Component {
   onMenuItemClick (menuItem) {
     this.props.history.push(menuItem.route);
   }
-
-  onRightClick () { }
-
 
   render () {
     const pathName = this.props.location;
@@ -49,7 +46,7 @@ class App extends Component {
     return (
       <div className="app">
         <div className="wrap grey lighten-4" >
-            <Navbar ref="navbar"  onRightClick={this.onRightClick}>
+            <Navbar ref="navbar">
               {menu}
             </Navbar>
 

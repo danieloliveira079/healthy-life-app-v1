@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-
 import { logout } from '../actions/auth';
 
 import { Strings } from '../constants';
 
-
 class Navbar extends Component {
 
   handleLogout () {
-    const { dispatch, auth } = this.props;
-
-    if (auth.isFetching) {
-      return;
-    }
-
+    const { dispatch } = this.props;
     dispatch(logout());
   }
 
   renderLoggedIn () {
     const menuStyle = {
-      marginLeft: '20px',
+      marginLeft: '20px'
     };
 
     return (

@@ -84,15 +84,15 @@ class Login extends Component {
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-social-person-outline prefix"></i>
-                    <input ref="email" className="validate" id="email" type="email" defaultValue="admin@example.com" />
-                    <label htmlFor="email" data-error="wrong" data-success="right" className="center-align">Email</label>
+                    <input ref="email" placeholder="" className="validate" id="email" type="email" defaultValue="admin@example.com" />
+                    <label htmlFor="email" data-error="wrong" data-success="right" className="center-align active">Email</label>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input ref="password" id="password" type="password" defaultValue="password" />
-                    <label htmlFor="password">Senha</label>
+                    <input ref="password" placeholder="" id="password" type="password" defaultValue="password" />
+                    <label htmlFor="password" className="active">Senha</label>
                   </div>
                 </div>
                 <div className="row">

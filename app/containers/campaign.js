@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import $ from 'jquery';
+import { fetchCampaignById } from '../actions/campaign';
 import ImageGallery from 'react-image-gallery';
 
 import { Strings } from '../constants';
@@ -8,19 +8,30 @@ import { Strings } from '../constants';
 
 class Campaign extends Component {
 
-  componentDidMount () {
+  componentWillMount () {
+    const id = this.props.params.param1
+    this.props.dispatch(fetchCampaignById(id));
+  }
+
+  componentDidUpdate () {
     $('select').material_select();
+    $('label').addClass('active')
   }
 
   handleSlide (index) {
-    console.log('Slid to ' + index);
+    //console.log('Slid to ' + index);
   }
 
   handleCancel () {
     this.props.history.push('home');
   }
 
-  render () {
+  renderCampaign ({isFetching, item}) {
+
+    if (isFetching || !item) {
+      return null;
+    }
+
     const images = [
       {
         original: 'http://lorempixel.com/1000/600/nature/1/',
@@ -39,59 +50,52 @@ class Campaign extends Component {
       },
     ];
 
-    const divStyle = {
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: '50px',
-      padding: '20px',
-    };
-
     return (
-      <div className="app-page page-campaign white" style={divStyle}>
-        <div className="row section">
-          <div className="input-field col s2">
-              <h5>{Strings.Campaign.FormTitle}</h5>
-          </div>
-          <div className="input-field col s10">
-            <div className="switch">
-              <label>
-                Inactive
-                <input type="checkbox" />
-                <span className="lever"></span>
-                Active
-              </label>
+      <div>
+          <div className="row section">
+            <div className="input-field col s12">
+                <h5>{Strings.Campaign.FormTitle}</h5>
             </div>
           </div>
-        </div>
+          <div className="row section">
+            <div className="input-field col s10">
+              <div className="switch">
+                <label>
+                  {Strings.Campaign.FormFields.Status.Inactive}
+                  <input type="checkbox" />
+                  <span className="lever"></span>
+                  {Strings.Campaign.FormFields.Status.Active}
+                </label>
+              </div>
+            </div>
+          </div>
           <div className="row section">
             <form className="col s12">
               <div className="row">
                 <div className="input-field col s12">
-                  <input id="name" type="text" className="validate"/>
-                  <label htmlFor="name">Name</label>
+                  <input id="name" type="text" className="validate" defaultValue={item.title}/>
+                  <label htmlFor="name">{Strings.Campaign.FormFields.Title}</label>
                 </div>
               </div>
-              <div className="row">
+              <div className="row section">
                 <div className="input-field col s12">
-                  <textarea id="description" className="materialize-textarea"></textarea>
-                  <label htmlFor="description">Description</label>
+                  <textarea id="description" className="materialize-textarea" defaultValue={item.description}></textarea>
+                  <label htmlFor="description">{Strings.Campaign.FormFields.Description}</label>
                 </div>
               </div>
-              <div className="row">
+              <div className="row section">
                 <div className="input-field col s6">
                   <select>
-                    <option value="">Select one interval</option>
                     <option value="1">00:30</option>
                     <option value="2">01:00</option>
                     <option value="3">24:00</option>
                   </select>
-                  <label>Interval</label>
+                  <label>{Strings.Campaign.FormFields.Interval}</label>
                 </div>
               </div>
-              <div className="row">
+              <div className="row section">
                 <div className="input-field col s6">
                   <select>
-                    <option value="">Select one category</option>
                     <option value="1">Family and Friends</option>
                     <option value="2">Phisical Activity</option>
                     <option value="3">Nutrition</option>
@@ -99,7 +103,7 @@ class Campaign extends Component {
                     <option value="5">Alcohol and Drugs</option>
                     <option value="6">Stress</option>
                   </select>
-                  <label>Category</label>
+                  <label>{Strings.Campaign.FormFields.Category}</label>
                 </div>
               </div>
               <div className="section">
@@ -121,11 +125,33 @@ class Campaign extends Component {
               </div>
             </form>
           </div>
+        </div>
+    );
+  }
+
+  render(){
+
+    const { campaign } = this.props;
+
+    const divStyle = {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: '50px',
+      padding: '20px',
+    };
+
+
+    return(
+      <div className="app-page page-campaign white" style={divStyle}>
+        {campaign.isFetching && <div>Loading...</div>}
+        {this.renderCampaign(campaign)}
       </div>
     );
   }
 }
 
-export default connect(() => {
-  return { };
+export default connect((state) => {
+  return {
+    campaign: state.campaign,
+  };
 })(Campaign);

@@ -47,9 +47,7 @@
     "react-select": "^0.8.2",
     "redux": "^3.0.5",
     "redux-router": "^1.0.0-beta5",
-    "webpack": "^1.12.2"
-  },
-  "devDependencies": {
+    "webpack": "^1.12.2",
     "css-loader": "^0.21.0",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.1.0",

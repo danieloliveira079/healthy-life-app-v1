@@ -1,48 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { logout } from '../actions/auth';
 
 import { Strings } from '../constants';
 
+class Navbar extends Component {
 
-export default React.createClass({
+  handleLogout () {
+    const { dispatch } = this.props;
+    dispatch(logout());
+  }
 
-  propTypes: {
-    title: React.PropTypes.string,
-    onRightClick: React.PropTypes.func,
-    isLoggedIn: React.PropTypes.bool
-  },
-
-  getInitialState () {
-    return {
-      title: this.props.title,
-      isLoggedIn: this.props.isLoggedIn
-    };
-  },
-
-  componentDidMount () {
-    $('.button-collapse').sideNav({
-      menuWidth: 300,     // Default is 240
-      edge: 'left',      // Choose the horizontal origin
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-    });
-  },
-
-  updateTitle (title) {
-    if (this.state.title === title) return;
-
-    this.setState({ title: title });
-  },
-
-  onRightClick () {
-    if (!this.props.onRightClick) return;
-
-    this.props.onRightClick();
-  },
-
-  renderLoggedIn(){
-    let menuStyle = {
+  renderLoggedIn () {
+    const menuStyle = {
       marginLeft: '20px'
     };
+
     return (
       <nav className="navbar-component blue">
         <div className="left" style={menuStyle}>
@@ -50,33 +24,40 @@ export default React.createClass({
             {this.props.children}
           </ul>
           <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="mdi-navigation-menu"></i></a>
-          <a href="#" className="brand-logo center">{this.state.title}</a>
+          <a href="#" className="brand-logo center">APP LOGO</a>
         </div>
         <div className="right login-info">
-          <span><Link to='/'>{Strings.Login.LogoutAction}</Link></span>
+          <span><Link to="/" onClick={::this.handleLogout}>{Strings.Login.LogoutAction}</Link></span>
         </div>
-    </nav>
-    )
-  },
+      </nav>
+    );
+  }
 
-  renderNotLoggedIn(){
-    let menuStyle = {
-      marginLeft: '20px'
+  renderNotLoggedIn () {
+    const menuStyle = {
+      marginLeft: '20px',
     };
+
     return (
       <nav className="navbar-component blue">
         <div className="left" style={menuStyle}>
-          <a href="#" className="brand-logo center">{this.state.title}</a>
+          <a href="#" className="brand-logo center">APP</a>
         </div>
-    </nav>
-    )
-  },
-
-  render () {
-    if (this.state.isLoggedIn) {
-      return (this.renderLoggedIn())  
-    }
-    return (this.renderNotLoggedIn())
+      </nav>
+    );
   }
 
-});
+  render () {
+    if (this.props.auth.isLoggedIn) {
+      return (this.renderLoggedIn());
+    }
+
+    return (this.renderNotLoggedIn());
+  }
+}
+
+export default connect((state) => {
+  return {
+    auth: state.auth,
+  };
+})(Navbar);

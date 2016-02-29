@@ -1,96 +1,77 @@
-import React from 'react';
-import { FluxMixins, RouterMixins } from '../mixins';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { fetchCampaigns } from '../actions/campaign';
+
 import { Strings } from '../constants';
-import Btn from '../components/fixed-button';
 
-export default React.createClass({
+import Campaign from '../components/campaign';
 
-    mixins: [ FluxMixins, RouterMixins ],
+class Home extends Component {
 
-    handleQueryClick () {
-      this.transitionTo("/campaign", { q1: 1});
-    },
+  componentWillReceiveProps (nextProps) {
+    const { auth, history } = nextProps;
+    if (!auth.isLoggedIn) {
+      history.push('login');
+    }
+  }
 
-    handleParamsClick () {
-      const param1 = "123";
-      this.transitionTo(`/home/campaign/${param1}`);
-    },
+  componentWillMount () {
+    this.props.dispatch(fetchCampaigns());
+  }
 
-    render() {
-      let style = {
-        top: '75px',
-        left: '180px'
-      };
+  handleCampaignClick (id) {
+    this.props.history.push(`/campaign/${id}`);
+  }
 
-      return (
-        <div className="app-page page-home">
-          <div className="section">
-            <div className="row">
-              <div className="col s6">  <h4>{Strings.Campaign.TitleList}</h4></div>
-              <div className="col s6"><a className="waves-effect waves-light blue btn-large right" onClick={this.handleParamsClick}>{Strings.Operations.New}</a></div>
-            </div>
-          </div>
-          <div className="divider"></div>
-          <div className="row">
-            <div className="col s12 m6">
-              <div className="card">
-                <div className="card-content">
-                    <span className="card-title"><b>Alongamentos para Empresas</b></span>
-                    <p>Lista de alongamentos para funcionários fazerem durante o expediente.</p>
-                </div>
-                <div className="card-action grey lighten-5">
-                  <a><i className="material-icons small">person_pin</i>15</a>
-                  <a><i className="material-icons small">picture_in_picture</i>6</a>
-                  <a><i className="material-icons small">av_timer</i>00:30</a>
-                  <a onClick={this.handleParamsClick}><i className="material-icons small">mode_edit</i>{Strings.Operations.Edit}</a>
-                </div>
-            </div>
-            </div>
-            <div className="col s12 m6">
-              <div className="card">
-                <div className="card-content">
-                    <span className="card-title"><b>Alongamentos para Empresas</b></span>
-                    <p>Lista de alongamentos para funcionários fazerem durante o expediente.</p>
-                </div>
-                <div className="card-action grey lighten-5">
-                  <a><i className="material-icons small">person_pin</i>15</a>
-                  <a><i className="material-icons small">picture_in_picture</i>6</a>
-                  <a><i className="material-icons small">av_timer</i>00:30</a>
-                  <a onClick={this.handleParamsClick}><i className="material-icons small">mode_edit</i>{Strings.Operations.Edit}</a>
-                </div>
-            </div>
-            </div>
-            <div className="col s12 m6">
-              <div className="card">
-                <div className="card-content">
-                    <span className="card-title"><b>Alongamentos para Empresas</b></span>
-                    <p>Lista de alongamentos para funcionários fazerem durante o expediente.</p>
-                </div>
-                <div className="card-action grey lighten-5">
-                  <a><i className="material-icons small">person_pin</i>15</a>
-                  <a><i className="material-icons small">picture_in_picture</i>6</a>
-                  <a><i className="material-icons small">av_timer</i>00:30</a>
-                  <a onClick={this.handleParamsClick}><i className="material-icons small">mode_edit</i>{Strings.Operations.Edit}</a>
-                </div>
-            </div>
-            </div>
-            <div className="col s12 m6">
-              <div className="card">
-                <div className="card-content">
-                    <span className="card-title"><b>Alongamentos para Empresas</b></span>
-                    <p>Lista de alongamentos para funcionários fazerem durante o expediente.</p>
-                </div>
-                <div className="card-action grey lighten-5">
-                  <a><i className="material-icons small">person_pin</i>15</a>
-                  <a><i className="material-icons small">picture_in_picture</i>6</a>
-                  <a><i className="material-icons small">av_timer</i>00:30</a>
-                  <a onClick={this.handleParamsClick}><i className="material-icons small">mode_edit</i>{Strings.Operations.Edit}</a>
-                </div>
-            </div>
-            </div>
-          </div>
-        </div>
-      );
+  handleNewCampaignClick () {
+    const param1 = '123';
+    this.props.history.push(`/campaign/${param1}`);
+  }
+
+  renderCampaigns ({ isFetching, items }) {
+    if (isFetching || !items) {
+      return null;
     }
 
-  });
+    return (
+      <div className="row">
+        {items.map(item => {
+          return (
+            <Campaign
+              key={item.id}
+              campaign={item}
+              onClick={::this.handleCampaignClick}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+
+  render () {
+    const { campaignList } = this.props;
+
+    return (
+      <div className="app-page page-home">
+        <div className="section">
+          <div className="row">
+            <div className="col s6"><h4>{Strings.Campaign.TitleList}</h4></div>
+            <div className="col s6"><a className="waves-effect waves-light blue btn-large right" onClick={::this.handleNewCampaignClick}>{Strings.Operations.New}</a></div>
+          </div>
+        </div>
+        <div className="divider"></div>
+        {campaignList.isFetching && <div>Loading...</div>}
+        {this.renderCampaigns(campaignList)}
+      </div>
+    );
+  }
+}
+
+export default connect((state) => {
+  return {
+    auth: state.auth,
+    campaignList: state.campaignList,
+    isLoggedIn: state.isLoggedIn
+  };
+})(Home);

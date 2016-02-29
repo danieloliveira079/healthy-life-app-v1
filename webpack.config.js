@@ -11,7 +11,9 @@ module.exports = {
     publicPath: 'build/',
     filename: 'app.js'
   },
-
+  resolveLoader: {
+    root: path.join(__dirname, 'node_modules')
+  },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

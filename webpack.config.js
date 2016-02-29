@@ -1,11 +1,10 @@
-/* jshint node: true */
 var path = require('path');
 var webpack = require('webpack');
 
 
 module.exports = {
   context: path.join(__dirname),
-  entry: './lib/index.js',
+  entry: './app/index.js',
 
   output: {
     path: 'build',
@@ -14,27 +13,29 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+        'API_SERVICE_URL': JSON.stringify(process.env.API_SERVICE_URL || 'https://healthy-life-api.herokuapp.com/')
+      }
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
       "window.jQuery": "jquery",
-      "root.jQuery": "jquery",
       "Hammer": "hammerjs"
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-        'API_SERVICE_URL': JSON.stringify(process.env.API_SERVICE_URL || 'http://0.0.0.0:1234/')
-      }
-    }),
-    new webpack.IgnorePlugin(/vertx/)
+    })
   ],
 
   module: {
     loaders: [
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
       {
         test: /\.scss$/,
         loader: 'style!css!sass?outputStyle=expanded&'
@@ -45,7 +46,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'imports?_=lodash&$=jquery!jsx?harmony!babel-loader'
+        loader: 'babel'
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,

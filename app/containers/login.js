@@ -1,52 +1,77 @@
-import React from 'react';
-import { Link } from 'react-router'
-import { FluxMixins, RouterMixins } from '../mixins';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { login } from '../actions/auth';
+
 import { Strings } from '../constants';
 
-let noavatarImage = require('../../images/containers/login/noavatar.png');
+const noavatarImage = require('../../images/containers/login/noavatar.png');
 
-export default React.createClass({
-  mixins: [ FluxMixins, RouterMixins ],
+class Login extends Component {
 
-  handleCancel(){
-    this.transitionTo("/");
-  },
+  componentWillReceiveProps (nextProps) {
+    const { auth, history } = nextProps;
+    if (auth.isLoggedIn) {
+      history.push('home');
+    }
+  }
 
-  componentDidMount(){
+  handleLogin () {
+    const { dispatch, auth } = this.props;
+    const { email, password } = this.refs;
 
-  },
+    if (auth.isFetching) {
+      return;
+    }
 
-  render() {
-    let style ={
+    dispatch(login({
+      email: email.value,
+      password: password.value,
+    }));
+  }
+
+  renderErrorMessage ({ loginError }) {
+    if (!loginError) {
+      return null;
+    }
+
+    return (
+      <div className="row">
+        <div className="col s12">
+          <span className="red-text text-darken-2">Email ou senha inválidos!</span>
+        </div>
+      </div>
+    );
+  }
+
+  render () {
+    const { auth } = this.props;
+
+    const style = {
       height: '100%',
-      width: '100%'
+      width: '100%',
     };
 
-    let styleLogin = {
-      maxWidth:'400px',
+    const styleLogin = {
+      maxWidth: '400px',
       marginRight: 'auto',
       marginLeft: 'auto',
       marginTop: '20px',
-      marginBottom: '50px'
+      marginBottom: '50px',
     };
 
-    let avatarStyle = {
+    const avatarStyle = {
       width: '120px',
       height: '120px',
-      marginTop: '25px'
+      marginTop: '25px',
     };
 
-    let headerStyle = {
-      fontSize: '20px'
+    const headerStyle = {
+      fontSize: '20px',
     };
 
     return (
       <div className="container grey lighten-4" style={style}>
-        <nav className="navbar-component blue">
-          <div className="title center brand-logo">
-            {Strings.App.Name}
-          </div>
-        </nav>
         <div id="login-page" className="row" style={styleLogin}>
             <div className="col s12 z-depth-6 card-panel">
               <form className="login-form">
@@ -59,15 +84,15 @@ export default React.createClass({
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-social-person-outline prefix"></i>
-                    <input className="validate" id="email" type="email" />
-                    <label htmlFor="email" data-error="wrong" data-success="right" className="center-align">Email</label>
+                    <input ref="email" placeholder="" className="validate" id="email" type="email" defaultValue="admin@example.com" />
+                    <label htmlFor="email" data-error="wrong" data-success="right" className="center-align active">Email</label>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input id="password" type="password" />
-                    <label htmlFor="password">Senha</label>
+                    <input ref="password" placeholder="" id="password" type="password" defaultValue="password" />
+                    <label htmlFor="password" className="active">Senha</label>
                   </div>
                 </div>
                 <div className="row">
@@ -76,9 +101,12 @@ export default React.createClass({
                       <label htmlFor="remember-me">Mantenha-me conectado</label>
                   </div>
                 </div>
+                {this.renderErrorMessage(auth)}
                 <div className="row">
                   <div className="input-field col s12">
-                    <Link to='/home' className="btn-large waves-effect waves-light blue col s12">{Strings.Login.LoginAction}</Link>
+                    <a className="btn-large waves-effect waves-light blue col s12" onClick={::this.handleLogin}>
+                      {Strings.Login.LoginAction}
+                    </a>
                   </div>
                 </div>
                 <div className="row">
@@ -95,5 +123,10 @@ export default React.createClass({
     </div>
     );
   }
+}
 
-});
+export default connect((state) => {
+  return {
+    auth: state.auth,
+  };
+})(Login);

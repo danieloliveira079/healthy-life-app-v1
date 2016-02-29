@@ -16,8 +16,5 @@ app.get('/', function (req, res) {
 var port = process.env.PORT || 8080;
 
 var server = app.listen(port, function () {
-
-  var host = server.address().address;
-
-  console.log('Listening at http://%s:%s', host, port);
+  console.log('Listening on port %s', port);
 });

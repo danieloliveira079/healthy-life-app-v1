@@ -28,7 +28,12 @@ module.exports = {
       "Hammer": "hammerjs"
     })
   ],
-
+  resolve: {
+      alias: {
+        '$': 'jquery',
+        'jQuery': 'jquery'
+      }
+  },
   module: {
     loaders: [
       {

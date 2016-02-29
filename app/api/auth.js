@@ -4,19 +4,19 @@ const serviceUrl = 'sessions';
 
 
 export async function login (payload) {
-  const body = {
+  let body = {
     user: {
       ...payload,
     },
   };
 
-  const options = {
+  let options = {
     url: serviceUrl,
     data: body,
   };
 
   localStorage.clear();
-  const { data } = await ApiClient.post(options);
+  let { data } = await ApiClient.post(options);
 
   ApiClient.setAccessTokenAndUserEmail(data);
 

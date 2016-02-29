@@ -6,7 +6,9 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack -p",
     "dev": "./node_modules/.bin/webpack-dev-server --inline --hot",
-    "lint": "./node_modules/.bin/eslint app/"
+    "lint": "./node_modules/.bin/eslint app/",
+    "postinstall": "npm run build",
+    "start": "node server.js"
   },
   "main": "lib/index.js",
   "repository": {

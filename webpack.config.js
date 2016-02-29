@@ -11,7 +11,6 @@ module.exports = {
     publicPath: 'build/',
     filename: 'app.js'
   },
-
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -29,7 +28,12 @@ module.exports = {
       "Hammer": "hammerjs"
     })
   ],
-
+  resolve: {
+      alias: {
+        '$': 'jquery',
+        'jQuery': 'jquery'
+      }
+  },
   module: {
     loaders: [
       {

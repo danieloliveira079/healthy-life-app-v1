@@ -4,9 +4,8 @@ bower_components
 .DS_Store
 *.log
 /build
+
 =======
-*.gem
-*.rbc
 /.config
 /coverage/
 /InstalledFiles
@@ -16,11 +15,6 @@ bower_components
 /test/tmp/
 /test/version_tmp/
 /tmp/
-
-## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
 
 ## Documentation cache and generated files:
 /.yardoc/

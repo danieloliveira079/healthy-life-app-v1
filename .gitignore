@@ -3,7 +3,7 @@ node_modules
 bower_components
 .DS_Store
 *.log
-/build
+#/build
 =======
 *.gem
 *.rbc
@@ -20,7 +20,7 @@ bower_components
 ## Specific to RubyMotion:
 .dat*
 .repl_history
-build/
+#build/
 
 ## Documentation cache and generated files:
 /.yardoc/

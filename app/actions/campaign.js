@@ -39,12 +39,18 @@ export function fetchCampaignById (id) {
   };
 }
 
-export function save (data) {
+export function saveCampaign (data, id) {
   return async (dispatch) => {
     dispatch({ type: SAVE_CAMPAIGN_REQUEST });
 
     try {
-      const campaign = await api.save(data);
+      let campaign;
+
+      if (id) {
+        campaign = await api.edit(data, id);
+      } else {
+        campaign = await api.create(data);
+      }
 
       dispatch({ type: SAVE_CAMPAIGN_SUCCESS, campaign });
     } catch (err) {

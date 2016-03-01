@@ -4,6 +4,7 @@ import auth from './auth';
 import campaignList from './campaign-list';
 import campaign from './campaign';
 import categoryList from './category-list';
+import intervalList from './interval-list';
 
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   campaignList,
   campaign,
   categoryList,
+  intervalList,
 });
 
 

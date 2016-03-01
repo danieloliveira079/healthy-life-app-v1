@@ -8,9 +8,34 @@ import { Strings } from '../constants';
 
 class Campaign extends Component {
 
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      campaign: {
+        title: '',
+        active: false,
+        description: '',
+        interval: '00:00',
+        category: '',
+      },
+    };
+  }
+
   componentWillMount () {
-    const id = this.props.params.param1
-    this.props.dispatch(fetchCampaignById(id));
+    const { dispatch, params } = this.props;
+
+    if (params.id) {
+      dispatch(fetchCampaignById(params.id));
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      campaign: {
+        ...nextProps.campaign.item,
+      },
+    });
   }
 
   componentDidUpdate () {
@@ -26,9 +51,10 @@ class Campaign extends Component {
     this.props.history.push('home');
   }
 
-  renderCampaign ({isFetching, item}) {
+  renderCampaign ({ isFetching }) {
+    const { campaign } = this.state;
 
-    if (isFetching || !item) {
+    if (isFetching) {
       return null;
     }
 
@@ -62,7 +88,7 @@ class Campaign extends Component {
               <div className="switch">
                 <label>
                   {Strings.Campaign.FormFields.Status.Inactive}
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={campaign.active} />
                   <span className="lever"></span>
                   {Strings.Campaign.FormFields.Status.Active}
                 </label>
@@ -73,13 +99,13 @@ class Campaign extends Component {
             <form className="col s12">
               <div className="row">
                 <div className="input-field col s12">
-                  <input id="name" type="text" className="validate" defaultValue={item.title}/>
+                  <input id="name" type="text" className="validate" defaultValue={campaign.title}/>
                   <label htmlFor="name">{Strings.Campaign.FormFields.Title}</label>
                 </div>
               </div>
               <div className="row section">
                 <div className="input-field col s12">
-                  <textarea id="description" className="materialize-textarea" defaultValue={item.description}></textarea>
+                  <textarea id="description" className="materialize-textarea" defaultValue={campaign.description}></textarea>
                   <label htmlFor="description">{Strings.Campaign.FormFields.Description}</label>
                 </div>
               </div>
@@ -129,8 +155,7 @@ class Campaign extends Component {
     );
   }
 
-  render(){
-
+  render () {
     const { campaign } = this.props;
 
     const divStyle = {
@@ -140,8 +165,7 @@ class Campaign extends Component {
       padding: '20px',
     };
 
-
-    return(
+    return (
       <div className="app-page page-campaign white" style={divStyle}>
         {campaign.isFetching && <div>Loading...</div>}
         {this.renderCampaign(campaign)}

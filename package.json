@@ -8,7 +8,7 @@
     "dev": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "lint": "./node_modules/.bin/eslint app/",
     "start": "node server.js",
-    "postinstall": "[ \"$NODE_ENV\" == production ] && npm run build"
+    "postinstall": "[ \"$NODE_ENV\" == 'production' ] && npm run build"
   },
   "main": "lib/index.js",
   "repository": {

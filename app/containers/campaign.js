@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCampaignById } from '../actions/campaign';
 import ImageGallery from 'react-image-gallery';
+import Input from '../components/input/input';
+import Select from '../components/input/select';
+import Label from '../components/input/label';
+import Switch from '../components/input/switch';
 
 import { Strings } from '../constants';
 
@@ -85,14 +89,13 @@ class Campaign extends Component {
           </div>
           <div className="row section">
             <div className="input-field col s10">
-              <div className="switch">
-                <label>
-                  {Strings.Campaign.FormFields.Status.Inactive}
-                  <input type="checkbox" checked={campaign.active} />
-                  <span className="lever"></span>
-                  {Strings.Campaign.FormFields.Status.Active}
-                </label>
-              </div>
+              <Switch
+                ref="active"
+                field="active"
+                valueOn="Ativa"
+                valueOff="Desativada"
+                checked={campaign.active}
+              />
             </div>
           </div>
           <div className="row section">
@@ -110,27 +113,28 @@ class Campaign extends Component {
                 </div>
               </div>
               <div className="row section">
-                <div className="input-field col s6">
-                  <select>
-                    <option value="1">00:30</option>
-                    <option value="2">01:00</option>
-                    <option value="3">24:00</option>
-                  </select>
-                  <label>{Strings.Campaign.FormFields.Interval}</label>
-                </div>
+                <Input>
+                  <Label cssClass="label-react-select" text="Intervalo" />
+                  <Select
+                    ref="interval"
+                    field="interval"
+                    placeholder="Selecione um Intervalo"
+                    options={this.props.intervals}
+                    value={campaign.interval}
+                  />
+                </Input>
               </div>
               <div className="row section">
-                <div className="input-field col s6">
-                  <select>
-                    <option value="1">Family and Friends</option>
-                    <option value="2">Phisical Activity</option>
-                    <option value="3">Nutrition</option>
-                    <option value="4">Cigars</option>
-                    <option value="5">Alcohol and Drugs</option>
-                    <option value="6">Stress</option>
-                  </select>
-                  <label>{Strings.Campaign.FormFields.Category}</label>
-                </div>
+                <Input>
+                  <Label cssClass="label-react-select" text="Categoria" />
+                  <Select
+                    ref="category"
+                    field="category"
+                    placeholder="Selecione uma Categoria"
+                    options={this.props.categories}
+                    value={campaign.category}
+                  />
+                </Input>
               </div>
               <div className="section">
                 <h5>Slides</h5>
@@ -177,5 +181,7 @@ class Campaign extends Component {
 export default connect((state) => {
   return {
     campaign: state.campaign,
+    intervals: [ { "id": "1", "text": "00:30" }, { "id": "2", "text": "01:00" }, { "id": "3", "text": "12:00" }],
+    categories: [ { "id": "1", "text": "Family and Friends"}, { "id": "2", "text": "Phisical Activity"}, { "id": "3", "text": "Nutrition"}, { "id": "4", "text": "Cigars"}, { "id": "5", "text": "Alcohol and Drugs"}, { "id": "6", "text": "Stress"} ]
   };
 })(Campaign);

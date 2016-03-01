@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchCampaigns } from '../actions/campaign';
+import { fetchCampaigns, invalidateCampaignList } from '../actions/campaign';
 
 import { Strings } from '../constants';
 
 import Campaign from '../components/campaign';
 
 class Home extends Component {
+
+  componentWillMount () {
+    this.props.dispatch(fetchCampaigns());
+  }
 
   componentWillReceiveProps (nextProps) {
     const { auth, history } = nextProps;
@@ -16,8 +20,8 @@ class Home extends Component {
     }
   }
 
-  componentWillMount () {
-    this.props.dispatch(fetchCampaigns());
+  componentWillUnmount () {
+    this.props.dispatch(invalidateCampaignList());
   }
 
   handleCampaignClick (id) {
@@ -25,8 +29,7 @@ class Home extends Component {
   }
 
   handleNewCampaignClick () {
-    const param1 = '123';
-    this.props.history.push(`/campaign/${param1}`);
+    this.props.history.push(`/campaign`);
   }
 
   renderCampaigns ({ isFetching, items }) {
@@ -72,6 +75,6 @@ export default connect((state) => {
   return {
     auth: state.auth,
     campaignList: state.campaignList,
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.isLoggedIn,
   };
 })(Home);

@@ -1,35 +1,34 @@
 import {
-
-  DETAIL_CAMPAIGN_REQUEST,
-  DETAIL_CAMPAIGN_SUCCESS,
-  DETAIL_CAMPAIGN_FAILURE
-} from '../actions/campaign';
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_CATEGORIES_SUCCESS,
+  FETCH_CATEGORIES_FAILURE,
+} from '../actions/category';
 
 
 const INITIAL_STATE = {
   isFetching: false,
-  item: null,
+  items: null,
   error: null,
 };
 
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case DETAIL_CAMPAIGN_REQUEST: {
+    case FETCH_CATEGORIES_REQUEST: {
       return {
         ...state,
         isFetching: true,
         error: null,
       };
     }
-    case DETAIL_CAMPAIGN_SUCCESS: {
+    case FETCH_CATEGORIES_SUCCESS: {
       return {
         ...state,
         isFetching: false,
-        item: action.data,
+        items: action.data,
       };
     }
-    case DETAIL_CAMPAIGN_FAILURE: {
+    case FETCH_CATEGORIES_FAILURE: {
       return {
         ...state,
         isFetching: false,

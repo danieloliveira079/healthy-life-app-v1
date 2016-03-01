@@ -9,15 +9,15 @@ import Campaign from '../components/campaign';
 
 class Home extends Component {
 
+  componentWillMount () {
+    this.props.dispatch(fetchCampaigns());
+  }
+
   componentWillReceiveProps (nextProps) {
     const { auth, history } = nextProps;
     if (!auth.isLoggedIn) {
       history.push('login');
     }
-  }
-
-  componentWillMount () {
-    this.props.dispatch(fetchCampaigns());
   }
 
   handleCampaignClick (id) {
@@ -71,6 +71,6 @@ export default connect((state) => {
   return {
     auth: state.auth,
     campaignList: state.campaignList,
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.isLoggedIn,
   };
 })(Home);

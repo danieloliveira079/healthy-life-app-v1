@@ -11,6 +11,7 @@ export default React.createClass({
     valueOn     : React.PropTypes.string,
     valueOff    : React.PropTypes.string,
     checked     : React.PropTypes.bool,
+    onChange: React.PropTypes.func,
   },
 
   getDefaultProps () {
@@ -18,7 +19,6 @@ export default React.createClass({
       valueOn   : "Ativo",
       valueOff  : "Desativado",
       checked   : false,
-      onChange: function (event) { void event; },
     }
   },
 
@@ -42,7 +42,10 @@ export default React.createClass({
 
   onChange (event) {
     this.setState({ value: event.target.checked });
-    this.props.onChange(event);
+
+    if (this.props.onChange) {
+      this.props.onChange(event.target.checked);
+    }
   },
 
   render () {

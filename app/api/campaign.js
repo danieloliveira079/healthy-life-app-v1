@@ -21,12 +21,25 @@ export async function detail (id) {
   return data;
 }
 
-export async function save (campaign) {
+export async function create (campaign) {
   let options = {
     url: serviceUrl,
-    body: campaign,
+    data: {
+      campaign,
+    },
   };
 
   let { data } = await ApiClient.post(options);
   return data;
+}
+
+export async function edit (campaign, id) {
+  let options = {
+    url: `${serviceUrl}/${id}`,
+    data: {
+      campaign,
+    },
+  };
+
+  await ApiClient.put(options)
 }

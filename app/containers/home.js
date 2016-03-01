@@ -25,8 +25,7 @@ class Home extends Component {
   }
 
   handleNewCampaignClick () {
-    const param1 = '123';
-    this.props.history.push(`/campaign/${param1}`);
+    this.props.history.push(`/campaign`);
   }
 
   renderCampaigns ({ isFetching, items }) {

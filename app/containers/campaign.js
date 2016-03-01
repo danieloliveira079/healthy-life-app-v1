@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCampaignById } from '../actions/campaign';
 import ImageGallery from 'react-image-gallery';
+import $ from 'jquery';
+
+import { fetchCampaignById } from '../actions/campaign';
+import { fetchCategories } from '../actions/category';
+import { fetchIntervals } from '../actions/interval';
+
 import Input from '../components/input/input';
 import Select from '../components/input/select';
 import Label from '../components/input/label';
@@ -32,6 +37,9 @@ class Campaign extends Component {
     if (params.id) {
       dispatch(fetchCampaignById(params.id));
     }
+
+    dispatch(fetchCategories());
+    dispatch(fetchIntervals());
   }
 
   componentWillReceiveProps (nextProps) {
@@ -44,7 +52,7 @@ class Campaign extends Component {
 
   componentDidUpdate () {
     $('select').material_select();
-    $('label').addClass('active')
+    $('label').addClass('active');
   }
 
   handleSlide (index) {
@@ -57,8 +65,9 @@ class Campaign extends Component {
 
   renderCampaign ({ isFetching }) {
     const { campaign } = this.state;
+    const { categoryList, intervalList } = this.props;
 
-    if (isFetching) {
+    if (isFetching || categoryList.isFetching || intervalList.isFetching) {
       return null;
     }
 
@@ -119,7 +128,7 @@ class Campaign extends Component {
                     ref="interval"
                     field="interval"
                     placeholder="Selecione um Intervalo"
-                    options={this.props.intervals}
+                    options={intervalList.items}
                     value={campaign.interval}
                   />
                 </Input>
@@ -131,7 +140,7 @@ class Campaign extends Component {
                     ref="category"
                     field="category"
                     placeholder="Selecione uma Categoria"
-                    options={this.props.categories}
+                    options={categoryList.items}
                     value={campaign.category}
                   />
                 </Input>
@@ -181,7 +190,7 @@ class Campaign extends Component {
 export default connect((state) => {
   return {
     campaign: state.campaign,
-    intervals: [ { "id": "1", "text": "00:30" }, { "id": "2", "text": "01:00" }, { "id": "3", "text": "12:00" }],
-    categories: [ { "id": "1", "text": "Family and Friends"}, { "id": "2", "text": "Phisical Activity"}, { "id": "3", "text": "Nutrition"}, { "id": "4", "text": "Cigars"}, { "id": "5", "text": "Alcohol and Drugs"}, { "id": "6", "text": "Stress"} ]
+    intervalList: state.intervalList,
+    categoryList: state.categoryList,
   };
 })(Campaign);

@@ -24,9 +24,9 @@ export default (
 
       <Route path="login" component={Login} />
       <Route path="home" component={Home} onEnter={requireAuth} />
-      <Route path="campaign/:param1" component={Campaign} onEnter={requireAuth}/>
+      <Route path="campaign/:id" component={Campaign} onEnter={requireAuth} />
 
-      <Route path="*" component={NoMatch}/>
+      <Route path="*" component={NoMatch} />
     </Route>
   </Route>
 );

@@ -44,15 +44,13 @@ export function saveCampaign (data, id) {
     dispatch({ type: SAVE_CAMPAIGN_REQUEST });
 
     try {
-      let campaign;
-
       if (id) {
-        campaign = await api.edit(data, id);
+        await api.edit(data, id);
       } else {
-        campaign = await api.create(data);
+        await api.create(data);
       }
 
-      dispatch({ type: SAVE_CAMPAIGN_SUCCESS, campaign });
+      dispatch({ type: SAVE_CAMPAIGN_SUCCESS });
     } catch (err) {
       if (err.status) {
         const error = {

@@ -4,29 +4,42 @@ const serviceUrl = 'campaigns';
 
 
 export async function fetchCampaigns () {
-  const options = {
+  let options = {
     url: serviceUrl,
   };
 
-  const { data } = await ApiClient.get(options);
+  let { data } = await ApiClient.get(options);
   return data;
 }
 
 export async function detail (id) {
-  const options = {
+  let options = {
     url: `${serviceUrl}/${id}`,
   };
 
-  const { data } = await ApiClient.get(options);
+  let { data } = await ApiClient.get(options);
   return data;
 }
 
-export async function save (campaign) {
-  const options = {
+export async function create (campaign) {
+  let options = {
     url: serviceUrl,
-    body: campaign,
+    data: {
+      campaign,
+    },
   };
 
-  const { data } = await ApiClient.post(options);
+  let { data } = await ApiClient.post(options);
   return data;
+}
+
+export async function edit (campaign, id) {
+  let options = {
+    url: `${serviceUrl}/${id}`,
+    data: {
+      campaign,
+    },
+  };
+
+  await ApiClient.put(options)
 }

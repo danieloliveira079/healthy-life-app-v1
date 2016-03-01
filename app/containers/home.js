@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchCampaigns } from '../actions/campaign';
+import { fetchCampaigns, invalidateCampaignList } from '../actions/campaign';
 
 import { Strings } from '../constants';
 
@@ -18,6 +18,10 @@ class Home extends Component {
     if (!auth.isLoggedIn) {
       history.push('login');
     }
+  }
+
+  componentWillUnmount () {
+    this.props.dispatch(invalidateCampaignList());
   }
 
   handleCampaignClick (id) {

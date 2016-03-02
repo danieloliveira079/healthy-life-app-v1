@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import auth from './auth';
+import campaignDelete from './campaign-delete';
 import campaignDetail from './campaign-detail';
 import campaignList from './campaign-list';
 import campaignSave from './campaign-save';
@@ -10,6 +11,7 @@ import intervalList from './interval-list';
 
 const rootReducer = combineReducers({
   auth,
+  campaignDelete,
   campaignDetail,
   campaignList,
   campaignSave,

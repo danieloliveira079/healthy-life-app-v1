@@ -2,6 +2,9 @@ import ApiClient from './api-client';
 
 const serviceUrl = 'sessions';
 
+export async function logout () {
+  localStorage.clear();
+}
 
 export async function login (payload) {
   const body = {

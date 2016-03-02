@@ -11,7 +11,7 @@ export default React.createClass({
   getDefaultProps () {
     return {
       colClass: 's12',
-    },
+    };
   },
 
   renderErrorMessage () {
@@ -21,7 +21,7 @@ export default React.createClass({
       <div className="error-message">
         {this.props.errorMessage}
       </div>
-    ),
+    );
   },
 
   render () {

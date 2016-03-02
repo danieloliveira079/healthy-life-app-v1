@@ -27,19 +27,20 @@ export default React.createClass({
       searchable: true,
       multi: false,
       value: null,
-    },
+    };
   },
 
   getInitialState () {
     return {
       value: this.props.value,
-    },
+    };
   },
 
   onChange (value, item) {
     this.setState({
-      value: item
+      value: item,
     });
+
     if (!this.props.onChange) return;
 
     this.props.onChange(value, item[0]);
@@ -53,11 +54,11 @@ export default React.createClass({
     const value = this.refs[this.props.field].state.value;
 
     if (this.props.multi) {
-      const arr = value.split(",").map(item => {
-        return parseInt(item);
+      const arr = value.split(',').map(item => {
+        return parseInt(item, 10);
       });
 
-      const items =  this.props.options.filter(item => {
+      const items = this.props.options.filter(item => {
         return arr.indexOf(item.id) !== -1;
       });
 
@@ -71,15 +72,15 @@ export default React.createClass({
     const options = this.props.options ? this.props.options.map(option => {
       return {
         value: option.id,
-        label: option.text
-      }
+        label: option.text,
+      };
     }) : [];
 
     let value = this.state.value;
 
     if (this.props.multi) {
       value = this.props.value.map(item => {
-        return item.id
+        return item.id;
       });
     }
 
@@ -95,8 +96,9 @@ export default React.createClass({
         multi={this.props.multi}
         placeholder={this.props.placeholder}
         searchable={this.props.searchable}
-        value={value} />
+        value={value}
+      />
     );
-  }
+  },
 
 });

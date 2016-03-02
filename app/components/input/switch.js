@@ -19,16 +19,16 @@ export default React.createClass({
       valueOn: Strings.Campaign.FormFields.Status.Active,
       valueOff: Strings.Campaign.FormFields.Status.Inactive,
       checked: false,
-    },
-  }
+    };
+  },
 
   getInitialState () {
     return {
       valueOn: this.props.valueOn,
       valueOff: this.props.valueOff,
       value: this.props.checked,
-    },
-  }
+    };
+  },
 
   onChange (event) {
     this.setState({ value: event.target.checked });
@@ -49,7 +49,6 @@ export default React.createClass({
   },
 
   render () {
-
     return (
       <div className="switch">
         <label>
@@ -60,6 +59,6 @@ export default React.createClass({
         </label>
       </div>
     );
-  }
+  },
 
 });

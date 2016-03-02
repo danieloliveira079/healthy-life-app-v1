@@ -45,9 +45,9 @@ export async function edit (campaign, id) {
 }
 
 export async function deleteCampagin (id) {
-  let options = {
+  const options = {
     url: `${serviceUrl}/${id}`,
   };
 
-  await ApiClient.delete(options)
+  await ApiClient.delete(options);
 }

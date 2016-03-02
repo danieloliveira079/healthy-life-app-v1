@@ -1,5 +1,4 @@
 import * as api from '../api/auth';
-import auth from '../../services/auth';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -25,8 +24,7 @@ function _logout () {
   return async dispatch => {
     dispatch({ type: LOGOUT_REQUEST });
     try {
-      const data = await auth.logout();
-      dispatch({ type: LOGOUT_SUCCESS, data });
+      dispatch({ type: LOGOUT_SUCCESS });
     } catch (error) {
       dispatch({ type: LOGOUT_FAILURE, error });
     }

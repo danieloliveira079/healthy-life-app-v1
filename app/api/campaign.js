@@ -43,3 +43,11 @@ export async function edit (campaign, id) {
 
   await ApiClient.put(options)
 }
+
+export async function deleteCampagin (id) {
+  let options = {
+    url: `${serviceUrl}/${id}`,
+  };
+
+  await ApiClient.delete(options)
+}

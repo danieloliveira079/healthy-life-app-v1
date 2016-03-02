@@ -4,7 +4,9 @@ import ImageGallery from 'react-image-gallery';
 import $ from 'jquery';
 
 import {
+  deleteCampaign,
   fetchCampaignById,
+  resetDelete,
   resetDetails,
   resetSave,
   saveCampaign,
@@ -48,15 +50,17 @@ class Campaign extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.campaignSave.isSaved) {
+    const { campaignDelete, campaignDetail, campaignSave } = nextProps;
+
+    if (campaignDelete.isDeleted || campaignSave.isSaved) {
       this.props.history.push('home');
       return;
     }
 
-    if (nextProps.campaignDetail.item) {
+    if (campaignDetail.item) {
       this.setState({
         campaign: {
-          ...nextProps.campaignDetail.item,
+          ...campaignDetail.item,
         },
       });
     }
@@ -69,8 +73,9 @@ class Campaign extends Component {
 
   componentWillUnmount () {
     const { dispatch } = this.props;
-    dispatch(resetSave());
+    dispatch(resetDelete());
     dispatch(resetDetails());
+    dispatch(resetSave());
   }
 
   handleFieldChange (field) {
@@ -102,12 +107,14 @@ class Campaign extends Component {
     const {
       dispatch,
       params,
+      campaignDelete,
       campaignDetail,
       campaignSave,
       categoryList,
       intervalList,
     } = this.props;
 
+    if (campaignDelete.isDeleting) return;
     if (campaignDetail.isFetching) return;
     if (campaignSave.isSaving) return;
     if (categoryList.isFetching) return;
@@ -121,9 +128,38 @@ class Campaign extends Component {
     dispatch(saveCampaign(campaign, params.id));
   }
 
+  handleDelete () {
+    const {
+      dispatch,
+      params,
+      campaignDelete,
+      campaignDetail,
+      campaignSave,
+      categoryList,
+      intervalList,
+    } = this.props;
+
+    if (!params.id) return;
+    if (campaignDelete.isDeleting) return;
+    if (campaignDetail.isFetching) return;
+    if (campaignSave.isSaving) return;
+    if (categoryList.isFetching) return;
+    if (intervalList.isFetching) return;
+    if (!confirm('Deseja realmente excluir esta campanha?')) return;
+
+    dispatch(deleteCampaign(params.id));
+  }
+
   renderCampaign (isFetchingFromBackEnd) {
     const { campaign } = this.state;
-    const { campaignDetail, campaignSave, categoryList, intervalList } = this.props;
+    const {
+      campaignDelete,
+      campaignDetail,
+      campaignSave,
+      categoryList,
+      intervalList,
+      params,
+    } = this.props;
 
     if (isFetchingFromBackEnd) {
       return null;
@@ -242,12 +278,13 @@ class Campaign extends Component {
               <div className="col s4">
                 <a className="waves-effect waves-light blue btn-large" onClick={::this.handleSave}>{Strings.Operations.Save}</a>
               </div>
-              <div className="col s4">
-                <a className="waves-effect waves-light red btn-large left">{Strings.Operations.Delete}</a>
-              </div>
+              {params.id && <div className="col s4">
+                <a className="waves-effect waves-light red btn-large left" onClick={::this.handleDelete}>{Strings.Operations.Delete}</a>
+              </div>}
             </div>
             <div className="row">
               {campaignSave.error && this.renderSaveErrorMessage()}
+              {campaignDelete.error && this.renderDeleteErrorMessage()}
             </div>
           </form>
         </div>
@@ -263,6 +300,14 @@ class Campaign extends Component {
     return (
       <div>
         Campanha não encontrada. Estamos redirecionando para a listagem de campanhas...
+      </div>
+    );
+  }
+
+  renderDeleteErrorMessage () {
+    return (
+      <div>
+        Ocorreu um erro ao tentar excluir esta campanha. Por favor tente novamente.
       </div>
     );
   }
@@ -299,6 +344,7 @@ class Campaign extends Component {
 
 export default connect((state) => {
   return {
+    campaignDelete: state.campaignDelete,
     campaignDetail: state.campaignDetail,
     campaignSave: state.campaignSave,
     categoryList: state.categoryList,

@@ -8,32 +8,42 @@ import { Strings } from '../../constants';
 export default React.createClass({
 
   propTypes: {
-    field       : React.PropTypes.string,
-    multi       : React.PropTypes.bool,
-    onChange    : React.PropTypes.func,
-    options     : React.PropTypes.array,
-    placeholder : React.PropTypes.string,
-    searchable  : React.PropTypes.bool,
-    value       : React.PropTypes.oneOfType([
+    field: React.PropTypes.string,
+    multi: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+    options: React.PropTypes.array,
+    placeholder: React.PropTypes.string,
+    searchable: React.PropTypes.bool,
+    value: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number,
       React.PropTypes.object,
-      React.PropTypes.array
+      React.PropTypes.array,
     ]),
   },
 
   getDefaultProps () {
     return {
       searchable: true,
-      multi     : false,
-      value     : null
-    }
+      multi: false,
+      value: null,
+    };
   },
 
   getInitialState () {
     return {
-      value: this.props.value
-    }
+      value: this.props.value,
+    };
+  },
+
+  onChange (value, item) {
+    this.setState({
+      value: item,
+    });
+
+    if (!this.props.onChange) return;
+
+    this.props.onChange(value, item[0]);
   },
 
   getText () {
@@ -44,11 +54,11 @@ export default React.createClass({
     const value = this.refs[this.props.field].state.value;
 
     if (this.props.multi) {
-      const arr = value.split(",").map(item => {
-        return parseInt(item);
+      const arr = value.split(',').map(item => {
+        return parseInt(item, 10);
       });
 
-      const items =  this.props.options.filter(item => {
+      const items = this.props.options.filter(item => {
         return arr.indexOf(item.id) !== -1;
       });
 
@@ -58,28 +68,19 @@ export default React.createClass({
     return value;
   },
 
-  onChange (value, item) {
-    this.setState({
-      value: item
-    });
-    if (!this.props.onChange) return;
-
-    this.props.onChange(value, item[0]);
-  },
-
   render () {
     const options = this.props.options ? this.props.options.map(option => {
       return {
         value: option.id,
-        label: option.text
-      }
+        label: option.text,
+      };
     }) : [];
 
     let value = this.state.value;
 
     if (this.props.multi) {
       value = this.props.value.map(item => {
-        return item.id
+        return item.id;
       });
     }
 
@@ -95,8 +96,9 @@ export default React.createClass({
         multi={this.props.multi}
         placeholder={this.props.placeholder}
         searchable={this.props.searchable}
-        value={value} />
+        value={value}
+      />
     );
-  }
+  },
 
 });

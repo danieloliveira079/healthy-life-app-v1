@@ -4,14 +4,14 @@ import React from 'react';
 export default React.createClass({
 
   propTypes: {
-    colClass    : React.PropTypes.string,
+    colClass: React.PropTypes.string,
     errorMessage: React.PropTypes.string,
   },
 
   getDefaultProps () {
     return {
-      colClass: "s12",
-    }
+      colClass: 's12',
+    };
   },
 
   renderErrorMessage () {
@@ -21,7 +21,7 @@ export default React.createClass({
       <div className="error-message">
         {this.props.errorMessage}
       </div>
-    )
+    );
   },
 
   render () {
@@ -31,6 +31,6 @@ export default React.createClass({
           {this.renderErrorMessage()}
         </div>
     );
-  }
+  },
 
 });

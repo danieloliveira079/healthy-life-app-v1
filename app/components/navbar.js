@@ -14,7 +14,7 @@ class Navbar extends Component {
 
   renderLoggedIn () {
     const menuStyle = {
-      marginLeft: '20px'
+      marginLeft: '20px',
     };
 
     return (
@@ -24,7 +24,7 @@ class Navbar extends Component {
             {this.props.children}
           </ul>
           <a href="#" data-activates="slide-out" className="button-collapse show-on-large"><i className="mdi-navigation-menu"></i></a>
-          <a href="#" className="brand-logo center">APP LOGO</a>
+          <a href="#" className="brand-logo center">{Strings.App.Name}</a>
         </div>
         <div className="right login-info">
           <span><Link to="/" onClick={::this.handleLogout}>{Strings.Login.LogoutAction}</Link></span>
@@ -41,7 +41,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar-component blue">
         <div className="left" style={menuStyle}>
-          <a href="#" className="brand-logo center">APP</a>
+          <a href="#" className="brand-logo center">{Strings.App.Name}</a>
         </div>
       </nav>
     );

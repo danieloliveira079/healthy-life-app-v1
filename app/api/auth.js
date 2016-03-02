@@ -2,21 +2,24 @@ import ApiClient from './api-client';
 
 const serviceUrl = 'sessions';
 
+export async function logout () {
+  localStorage.clear();
+}
 
 export async function login (payload) {
-  let body = {
+  const body = {
     user: {
       ...payload,
     },
   };
 
-  let options = {
+  const options = {
     url: serviceUrl,
     data: body,
   };
 
   localStorage.clear();
-  let { data } = await ApiClient.post(options);
+  const { data } = await ApiClient.post(options);
 
   ApiClient.setAccessTokenAndUserEmail(data);
 

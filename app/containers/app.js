@@ -7,8 +7,6 @@ import { Strings } from '../constants';
 
 import Navbar from '../components/navbar';
 
-import auth from '../../services/auth';
-
 const menuItems = [
   { name: Strings.Home.Title, route: '/home' },
   { name: Strings.About.Title, route: '/about' },

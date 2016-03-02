@@ -1,39 +1,39 @@
 import {
-  SAVE_CAMPAIGN_REQUEST,
-  SAVE_CAMPAIGN_SUCCESS,
-  SAVE_CAMPAIGN_FAILURE,
-  SAVE_CAMPAIGN_RESET,
+  DELETE_CAMPAIGN_REQUEST,
+  DELETE_CAMPAIGN_SUCCESS,
+  DELETE_CAMPAIGN_FAILURE,
+  DELETE_CAMPAIGN_RESET,
 } from '../actions/campaign';
 
 
 const INITIAL_STATE = {
-  isSaving: false,
-  isSaved: false,
+  isDeleting: false,
+  isDeleted: false,
   error: null,
 };
 
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SAVE_CAMPAIGN_REQUEST:
+    case DELETE_CAMPAIGN_REQUEST:
       return {
         ...state,
-        isSaving: true,
+        isDeleting: true,
         error: null,
       };
-    case SAVE_CAMPAIGN_SUCCESS:
+    case DELETE_CAMPAIGN_SUCCESS:
       return {
         ...state,
-        isSaving: false,
-        isSaved: true,
+        isDeleting: false,
+        isDeleted: true,
       };
-    case SAVE_CAMPAIGN_FAILURE:
+    case DELETE_CAMPAIGN_FAILURE:
       return {
         ...state,
-        isSaving: false,
+        isDeleting: false,
         error: action.error,
       };
-    case SAVE_CAMPAIGN_RESET:
+    case DELETE_CAMPAIGN_RESET:
       return { ...INITIAL_STATE };
     default:
       return state;

@@ -10,7 +10,9 @@ import Campaign from '../components/campaign';
 class Home extends Component {
 
   componentWillMount () {
-    this.props.dispatch(fetchCampaigns());
+    if (this.props.auth.isLoggedIn) {
+      this.props.dispatch(fetchCampaigns());
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -64,7 +66,7 @@ class Home extends Component {
           </div>
         </div>
         <div className="divider"></div>
-        {campaignList.isFetching && <div>Loading...</div>}
+        {campaignList.isFetching && <div>{Strings.Campaign.Loading}</div>}
         {this.renderCampaigns(campaignList)}
       </div>
     );

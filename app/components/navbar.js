@@ -14,7 +14,7 @@ class Navbar extends Component {
 
   renderLoggedIn () {
     const menuStyle = {
-      marginLeft: '20px'
+      marginLeft: '20px',
     };
 
     return (

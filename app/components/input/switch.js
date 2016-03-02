@@ -6,27 +6,35 @@ import { Strings } from '../../constants';
 export default React.createClass({
 
   propTypes: {
-    field       : React.PropTypes.string,
-    onClick     : React.PropTypes.func,
-    valueOn     : React.PropTypes.string,
-    valueOff    : React.PropTypes.string,
-    checked     : React.PropTypes.bool,
+    field: React.PropTypes.string,
+    onClick: React.PropTypes.func,
+    valueOn: React.PropTypes.string,
+    valueOff: React.PropTypes.string,
+    checked: React.PropTypes.bool,
     onChange: React.PropTypes.func,
   },
 
   getDefaultProps () {
     return {
-      valueOn   : "Ativo",
-      valueOff  : "Desativado",
-      checked   : false,
-    }
-  },
+      valueOn: Strings.Campaign.FormFields.Status.Active,
+      valueOff: Strings.Campaign.FormFields.Status.Inactive,
+      checked: false,
+    },
+  }
 
   getInitialState () {
     return {
       valueOn: this.props.valueOn,
       valueOff: this.props.valueOff,
       value: this.props.checked,
+    },
+  }
+
+  onChange (event) {
+    this.setState({ value: event.target.checked });
+
+    if (this.props.onChange) {
+      this.props.onChange(event.target.checked);
     }
   },
 
@@ -38,14 +46,6 @@ export default React.createClass({
     const value = this.refs[this.props.field].state.checked;
 
     return value;
-  },
-
-  onChange (event) {
-    this.setState({ value: event.target.checked });
-
-    if (this.props.onChange) {
-      this.props.onChange(event.target.checked);
-    }
   },
 
   render () {

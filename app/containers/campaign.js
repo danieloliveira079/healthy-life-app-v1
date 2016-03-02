@@ -30,7 +30,6 @@ class Campaign extends Component {
         title: '',
         active: false,
         description: '',
-        interval: '00:00',
         category: '',
       },
     };
@@ -90,9 +89,7 @@ class Campaign extends Component {
     });
   }
 
-  handleSlide (index) {
-    console.log('Slid to ' + index);
-  }
+  //  handleSlide (index) { }
 
   handleCancel () {
     this.props.history.push('home');
@@ -199,11 +196,11 @@ class Campaign extends Component {
             </div>
             <div className="row section">
               <Input>
-                <Label cssClass="label-react-select" text="Intervalo" />
+                <Label cssClass="label-react-select" text={Strings.Campaign.FormFields.Interval.Label} />
                 <Select
                   ref="interval"
                   field="interval"
-                  placeholder="Selecione um Intervalo"
+                  placeholder={Strings.Campaign.FormFields.Interval.Placeholder}
                   options={intervalList.items}
                   value={campaign.interval}
                   onChange={::this.handleSelectChange.bind(this, 'interval')}
@@ -212,11 +209,11 @@ class Campaign extends Component {
             </div>
             <div className="row section">
               <Input>
-                <Label cssClass="label-react-select" text="Categoria" />
+                <Label cssClass="label-react-select" text={Strings.Campaign.FormFields.Category.Label} />
                 <Select
                   ref="category"
                   field="category"
-                  placeholder="Selecione uma Categoria"
+                  placeholder={Strings.Campaign.FormFields.Category.Placeholder}
                   options={categoryList.items}
                   value={campaign.category}
                   onChange={::this.handleSelectChange.bind(this, 'category')}
@@ -232,7 +229,7 @@ class Campaign extends Component {
                 items={images}
                 autoPlay={true}
                 slideInterval={4000}
-                onSlide={this.handleSlide.bind(this)}
+                //  onSlide={this.handleSlide.bind(this)}
               />
             </div>
             <div className="row actions">
@@ -290,7 +287,7 @@ class Campaign extends Component {
 
     return (
       <div className="app-page page-campaign white" style={divStyle}>
-        {isFetchingFromBackEnd && <div>Loading...</div>}
+        {isFetchingFromBackEnd && <div> {Strings.Campaign.Loading}</div>}
         {this.renderCampaign(isFetchingFromBackEnd)}
       </div>
     );

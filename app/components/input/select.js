@@ -8,32 +8,41 @@ import { Strings } from '../../constants';
 export default React.createClass({
 
   propTypes: {
-    field       : React.PropTypes.string,
-    multi       : React.PropTypes.bool,
-    onChange    : React.PropTypes.func,
-    options     : React.PropTypes.array,
-    placeholder : React.PropTypes.string,
-    searchable  : React.PropTypes.bool,
-    value       : React.PropTypes.oneOfType([
+    field: React.PropTypes.string,
+    multi: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+    options: React.PropTypes.array,
+    placeholder: React.PropTypes.string,
+    searchable: React.PropTypes.bool,
+    value: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number,
       React.PropTypes.object,
-      React.PropTypes.array
+      React.PropTypes.array,
     ]),
   },
 
   getDefaultProps () {
     return {
       searchable: true,
-      multi     : false,
-      value     : null
-    }
+      multi: false,
+      value: null,
+    },
   },
 
   getInitialState () {
     return {
-      value: this.props.value
-    }
+      value: this.props.value,
+    },
+  },
+
+  onChange (value, item) {
+    this.setState({
+      value: item
+    });
+    if (!this.props.onChange) return;
+
+    this.props.onChange(value, item[0]);
   },
 
   getText () {
@@ -56,15 +65,6 @@ export default React.createClass({
     }
 
     return value;
-  },
-
-  onChange (value, item) {
-    this.setState({
-      value: item
-    });
-    if (!this.props.onChange) return;
-
-    this.props.onChange(value, item[0]);
   },
 
   render () {

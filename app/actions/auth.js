@@ -21,7 +21,7 @@ export function logout () {
   };
 }
 
-function _logout(){
+function _logout () {
   return async dispatch => {
     dispatch({ type: LOGOUT_REQUEST });
     try {

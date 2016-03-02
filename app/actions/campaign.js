@@ -13,6 +13,10 @@ export const DETAIL_CAMPAIGN_REQUEST = 'DETAIL_CAMPAIGN_REQUEST';
 export const DETAIL_CAMPAIGN_SUCCESS = 'DETAIL_CAMPAIGN_SUCCESS';
 export const DETAIL_CAMPAIGN_FAILURE = 'DETAIL_CAMPAIGN_FAILURE';
 export const DETAIL_CAMPAIGN_RESET = 'DETAIL_CAMPAIGN_RESET';
+export const DELETE_CAMPAIGN_REQUEST = 'DELETE_CAMPAIGN_REQUEST';
+export const DELETE_CAMPAIGN_SUCCESS = 'DELETE_CAMPAIGN_SUCCESS';
+export const DELETE_CAMPAIGN_FAILURE = 'DELETE_CAMPAIGN_FAILURE';
+export const DELETE_CAMPAIGN_RESET = 'DELETE_CAMPAIGN_RESET';
 
 
 export function fetchCampaigns () {
@@ -72,6 +76,35 @@ export function saveCampaign (data, id) {
   };
 }
 
+export function deleteCampaign (id) {
+  return async (dispatch) => {
+    dispatch({ type: DELETE_CAMPAIGN_REQUEST });
+
+    try {
+      await api.deleteCampagin(id);
+
+      dispatch({ type: DELETE_CAMPAIGN_SUCCESS });
+    } catch (err) {
+      if (err.status) {
+        const error = {
+          message: err.data.error_message,
+          error: err.data.error,
+        };
+
+        dispatch({ type: DELETE_CAMPAIGN_FAILURE, error });
+
+        return;
+      }
+
+      const error = {
+        message: err.message,
+        error: err.error,
+      };
+      dispatch({ type: DELETE_CAMPAIGN_FAILURE, error });
+    }
+  };
+}
+
 export function invalidateCampaignList () {
   return { type: INVALIDATE_CAMPAIGN_LIST };
 }
@@ -82,4 +115,8 @@ export function resetSave () {
 
 export function resetDetails () {
   return { type: DETAIL_CAMPAIGN_RESET };
+}
+
+export function resetDelete () {
+  return { type: DELETE_CAMPAIGN_RESET };
 }

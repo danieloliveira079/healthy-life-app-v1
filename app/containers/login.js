@@ -48,7 +48,6 @@ class Login extends Component {
     const { auth } = this.props;
 
     const style = {
-      height: '100%',
       width: '100%',
     };
 

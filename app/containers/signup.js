@@ -1,55 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { login } from '../actions/auth';
+import { signup as sig} from '../actions/signup';
 
 import { Strings } from '../constants';
 
 const noavatarImage = require('../../images/containers/login/noavatar.png');
 
-class Login extends Component {
+class SignUp extends Component {
 
   componentWillReceiveProps (nextProps) {
-    const { auth, history } = nextProps;
-    if (auth.isLoggedIn) {
-      history.push('home');
+    const { signup, history } = nextProps;
+    if (!signup.isSignedUp) {
+      history.push('login');
     }
   }
 
-  componentWillUnmount () {
-    this.props.auth.loginError = '';
-  }
-
-  handleLogin () {
-    const { dispatch, auth } = this.props;
+  handleSignUp () {
+    const { dispatch, signup } = this.props;
     const { email, password } = this.refs;
 
-    if (auth.isFetching) {
+    if (signup.isFetching) {
       return;
     }
 
-    dispatch(login({
+    dispatch(sig({
       email: email.value,
       password: password.value,
     }));
   }
 
-  renderErrorMessage ({ loginError }) {
-    if (!loginError) {
+  renderErrorMessage ({ signupError }) {
+    if (!signupError) {
       return null;
     }
 
     return (
       <div className="row">
         <div className="col s12">
-          <span className="red-text text-darken-2">{Strings.Login.LoginFailure}</span>
+          <span className="red-text text-darken-2">{Strings.Signup.SignUpFailure}</span>
         </div>
       </div>
     );
   }
 
   render () {
-    const { auth } = this.props;
+    const { signup } = this.props;
 
     const style = {
       width: '100%',
@@ -80,44 +76,42 @@ class Login extends Component {
               <form className="login-form">
                 <div className="row">
                   <div className="input-field col s12 center">
-                    <h5 className="center login-form-text" style={headerStyle}>{Strings.Login.FormTitle}</h5>
+                    <h5 className="center login-form-text" style={headerStyle}>{Strings.Signup.FormTitle}</h5>
                     <img src={noavatarImage} className="circle responsive-img" style={avatarStyle}/>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-social-person-outline prefix"></i>
-                    <input ref="email" placeholder="" className="validate" id="email" type="email" defaultValue="admin@example.com" />
-                    <label htmlFor="email" data-error="wrong" data-success="right" className="center-align active">Email</label>
+                    <input ref="email" placeholder="" className="validate" id="email" type="email" />
+                    <label htmlFor="email" data-error="wrong" data-success="right" className="center-align active">{Strings.Signup.FormFields.Email}</label>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input ref="password" placeholder="" id="password" type="password" defaultValue="password" />
-                    <label htmlFor="password" className="active">Senha</label>
+                    <input ref="password" placeholder="" id="password" type="password" />
+                    <label htmlFor="password" className="active">{Strings.Signup.FormFields.Password}</label>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="input-field col s12 m12 l12  login-text">
-                      <input type="checkbox" id="remember-me" />
-                      <label htmlFor="remember-me">Mantenha-me conectado</label>
+                <div className="row margin">
+                  <div className="input-field col s12">
+                    <i className="mdi-action-lock-outline prefix"></i>
+                    <input ref="password2" placeholder="" id="password2" type="password" />
+                    <label htmlFor="password2" className="active">{Strings.Signup.FormFields.Password2}</label>
                   </div>
                 </div>
-                {this.renderErrorMessage(auth)}
+                {this.renderErrorMessage(signup)}
                 <div className="row">
                   <div className="input-field col s12">
-                    <a className="btn-large waves-effect waves-light blue col s12" onClick={::this.handleLogin}>
-                      {Strings.Login.LoginAction}
+                    <a className="btn-large waves-effect waves-light blue col s12" onClick={::this.handleSignUp}>
+                      {Strings.Signup.SignUpAction}
                     </a>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="input-field col s6 m6 l6">
-                    <p className="margin medium-small"><a href="#/signup">{Strings.Login.SignUpText}</a></p>
-                  </div>
-                  <div className="input-field col s6 m6 l6">
-                      <p className="margin right-align medium-small"><a href="#">{Strings.Login.PasswordRecovery}</a></p>
+                  <div className="input-field col s12">
+                    <p className="margin medium-small"><a href="/#/login">{Strings.Signup.CancelAction}</a></p>
                   </div>
                 </div>
               </form>
@@ -130,6 +124,6 @@ class Login extends Component {
 
 export default connect((state) => {
   return {
-    auth: state.auth,
+    signup: state.signup,
   };
-})(Login);
+})(SignUp);

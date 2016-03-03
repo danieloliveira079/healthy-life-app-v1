@@ -12,6 +12,8 @@ class Home extends Component {
   componentWillMount () {
     if (this.props.auth.isLoggedIn) {
       this.props.dispatch(fetchCampaigns());
+    } else {
+      this.props.history.push('login');
     }
   }
 

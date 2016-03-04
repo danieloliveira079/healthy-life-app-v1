@@ -61,6 +61,19 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     FormTitle: 'Informe suas Credenciais',
     SignUpText: 'Faça seu cadastro!',
     PasswordRecovery: 'Esqueceu sua senha?',
+    LoginFailure: 'Não foi possível realizar o login. Verifique seu email e senha.',
+  },
+
+  Signup: {
+    FormTitle: 'Informe as credenciais da nova conta',
+    SignUpFailure: 'Não foi possível realizar o cadastro da conta!',
+    SignUpAction: 'Salvar',
+    CancelAction: 'Cancelar',
+    FormFields: {
+      Email: 'Email',
+      Password: 'Senha',
+      Password2: 'Confirme sua senha',
+    },
   },
 
 });

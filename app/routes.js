@@ -5,9 +5,8 @@ import App from './containers/app';
 import Home from './containers/home';
 import Campaign from './containers/campaign';
 import Login from './containers/login';
+import SignUp from './containers/signup';
 import NoMatch from './containers/no-match';
-
-// import auth from '../services/auth';
 
 
 function requireAuth (/* nextState, replaceState */) {
@@ -23,6 +22,7 @@ export default (
       <IndexRoute component={Home} />
 
       <Route path="login" component={Login} />
+      <Route path="signup" component={SignUp} />
       <Route path="home" component={Home} onEnter={requireAuth} />
       <Route path="campaign" component={Campaign} onEnter={requireAuth} />
       <Route path="campaign/:id" component={Campaign} onEnter={requireAuth} />

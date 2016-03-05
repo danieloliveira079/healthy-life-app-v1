@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { signup as sig} from '../actions/signup';
+import { signup as sig } from '../actions/signup';
 
 import { Strings } from '../constants';
 
 const noavatarImage = require('../../images/containers/login/noavatar.png');
 
 class SignUp extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -18,34 +18,50 @@ class SignUp extends Component {
 
   componentWillReceiveProps (nextProps) {
     const { signup, history } = nextProps;
-    if (!signup.isSignedUp) {
+
+    if (signup.isFetching) {
+      return;
+    }
+
+    if (!signup.signupError) {
       history.push('login');
     }
   }
 
-  validatePasswordsMatch () {
-      const { password, password2 } = this.refs;
-      let errorMessage = '';
+  setErrorMessage (message) {
+    this.setState({
+      errorMessage: message,
+    });
+  }
 
-      if (password.value !== password2.value) {
-        errorMessage = "Passwords don't match!";
-        this.setState({
-          errorMessage: errorMessage,
-        });
-        return false;
-      } else {
-        this.setState({
-          errorMessage: errorMessage,
-        });
-        return true;
-      }
+  validatePasswordsMatch () {
+    const { password, password2 } = this.refs;
+
+    if (password.value !== password2.value) {
+      this.setErrorMessage("Passwords don't match!");
+    } else {
+      this.setErrorMessage('');
+      return true;
+    }
+
+    return true;
+  }
+
+  validateEmail (email) {
+    if (email && email.length > 0) {
+      this.setErrorMessage('');
+      return true;
+    }
+
+    this.setErrorMessage('O campo email é obrigatório!');
+    return false;
   }
 
   handleSignUp () {
     const { dispatch, signup } = this.props;
     const { email, password } = this.refs;
 
-    if (signup.isFetching || this.validatePasswordsMatch() == false) {
+    if (signup.isFetching || this.validateEmail(email.value) === false || this.validatePasswordsMatch() === false) {
       return;
     }
 

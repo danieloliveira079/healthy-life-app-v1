@@ -34,34 +34,56 @@ class SignUp extends Component {
     });
   }
 
-  validatePasswordsMatch () {
-    const { password, password2 } = this.refs;
+  validateCredentials () {
+    const { email, password, password2 } = this.refs;
 
-    if (password.value !== password2.value) {
+    return this.validateEmail(email.value)
+            && this.validatePasswordLength(password.value)
+            && this.validatePasswordMatch(password.value, password2.value)
+  }
+
+  validatePasswordMatch (password, password2) {
+    if (password !== password2) {
       this.setErrorMessage("Passwords don't match!");
-    } else {
-      this.setErrorMessage('');
-      return true;
+      return false;
     }
 
+    this.setErrorMessage('');
+    return true;
+  }
+
+  validatePasswordLength (password) {
+    if (password.length < 6) {
+      this.setErrorMessage("Password is too short");
+      return false;
+    }
+
+    this.setErrorMessage('');
     return true;
   }
 
   validateEmail (email) {
-    if (email && email.length > 0) {
-      this.setErrorMessage('');
-      return true;
+    const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+    if (email && email.length == 0 ) {
+      this.setErrorMessage('O campo email é obrigatório!');
+      return false;
     }
 
-    this.setErrorMessage('O campo email é obrigatório!');
-    return false;
+    if (!email.match(pattern)) {
+      this.setErrorMessage('O campo email é inválido!');
+      return false;
+    }
+
+    this.setErrorMessage('');
+    return true;
   }
 
   handleSignUp () {
     const { dispatch, signup } = this.props;
     const { email, password } = this.refs;
 
-    if (signup.isFetching || this.validateEmail(email.value) === false || this.validatePasswordsMatch() === false) {
+    if (signup.isFetching || this.validateCredentials() === false) {
       return;
     }
 
@@ -131,14 +153,14 @@ class SignUp extends Component {
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input ref="password" placeholder="" onChange={::this.validatePasswordsMatch} id="password" type="password" />
+                    <input ref="password" placeholder="" onChange={::this.validateCredentials} id="password" type="password" />
                     <label htmlFor="password" className="active">{Strings.Signup.FormFields.Password}</label>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input ref="password2" placeholder="" onChange={::this.validatePasswordsMatch} id="password2" type="password" />
+                    <input ref="password2" placeholder="" onChange={::this.validateCredentials} id="password2" type="password" />
                     <label htmlFor="password2" className="active">{Strings.Signup.FormFields.Password2}</label>
                   </div>
                 </div>

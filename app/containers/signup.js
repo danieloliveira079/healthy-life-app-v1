@@ -39,12 +39,12 @@ class SignUp extends Component {
 
     return this.validateEmail(email.value)
             && this.validatePasswordLength(password.value)
-            && this.validatePasswordMatch(password.value, password2.value)
+            && this.validatePasswordMatch(password.value, password2.value);
   }
 
   validatePasswordMatch (password, password2) {
     if (password !== password2) {
-      this.setErrorMessage("Passwords don't match!");
+      this.setErrorMessage(Strings.Signup.Validations.Password.Match);
       return false;
     }
 
@@ -53,8 +53,8 @@ class SignUp extends Component {
   }
 
   validatePasswordLength (password) {
-    if (password.length < 6) {
-      this.setErrorMessage("Password is too short");
+    if (password.length < 8) {
+      this.setErrorMessage(Strings.Signup.Validations.Password.Length);
       return false;
     }
 
@@ -65,13 +65,13 @@ class SignUp extends Component {
   validateEmail (email) {
     const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
-    if (email && email.length == 0 ) {
-      this.setErrorMessage('O campo email é obrigatório!');
+    if (email.length === 0) {
+      this.setErrorMessage(Strings.Signup.Validations.Email.Required);
       return false;
     }
 
     if (!email.match(pattern)) {
-      this.setErrorMessage('O campo email é inválido!');
+      this.setErrorMessage(Strings.Signup.Validations.Email.Valid);
       return false;
     }
 

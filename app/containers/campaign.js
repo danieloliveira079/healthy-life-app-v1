@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ImageGallery from 'react-image-gallery';
 import $ from 'jquery';
 
 import {
@@ -12,11 +11,13 @@ import {
   saveCampaign,
 } from '../actions/campaign';
 import { fetchCategories } from '../actions/category';
+import { deleteImage, uploadImage, resetImages } from '../actions/image';
 import { fetchIntervals } from '../actions/interval';
 
+import ImageUpload from '../components/image-upload';
 import Input from '../components/input/input';
-import Select from '../components/input/select';
 import Label from '../components/input/label';
+import Select from '../components/input/select';
 import Switch from '../components/input/switch';
 
 import { Strings } from '../constants';
@@ -75,6 +76,7 @@ class Campaign extends Component {
     dispatch(resetDelete());
     dispatch(resetDetails());
     dispatch(resetSave());
+    dispatch(resetImages());
   }
 
   handleFieldChange (field) {
@@ -94,8 +96,6 @@ class Campaign extends Component {
     });
   }
 
-  //  handleSlide (index) { }
-
   handleCancel () {
     this.props.history.push('home');
   }
@@ -108,6 +108,8 @@ class Campaign extends Component {
       campaignDetail,
       campaignSave,
       categoryList,
+      imageDelete,
+      imageUpload,
       intervalList,
     } = this.props;
 
@@ -115,9 +117,14 @@ class Campaign extends Component {
     if (campaignDetail.isFetching) return;
     if (campaignSave.isSaving) return;
     if (categoryList.isFetching) return;
+    if (imageDelete.isDeleting) return;
+    if (imageUpload.isUploading) return;
     if (intervalList.isFetching) return;
 
-    const { campaign } = this.state;
+    const campaign = {
+      ...this.state.campaign,
+      images: [...imageUpload.images],
+    };
 
     delete campaign.id;
 
@@ -147,38 +154,36 @@ class Campaign extends Component {
     dispatch(deleteCampaign(params.id));
   }
 
-  renderCampaign (isFetchingFromBackEnd) {
+  handleDropImage (files) {
+    const { imageUpload } = this.props;
+
+    if (imageUpload.isUploading) {
+      return;
+    }
+
+    const [image] = files;
+
+    this.props.dispatch(uploadImage(image));
+  }
+
+  handleRemoveImage (path) {
+    if (!confirm('Deseja realmente excluir esta imagem?')) return;
+
+    this.props.dispatch(deleteImage(path));
+  }
+
+  renderCampaign () {
     const { campaign } = this.state;
     const {
       campaignDelete,
       campaignDetail,
       campaignSave,
       categoryList,
+      imageUpload,
       intervalList,
       params,
     } = this.props;
-
-    if (isFetchingFromBackEnd) {
-      return null;
-    }
-
-    const images = [
-      {
-        original: 'http://lorempixel.com/1000/600/nature/1/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/1/',
-        originalClass: 'featured-slide',
-        thumbnailClass: 'featured-thumb',
-        description: 'Optional description...',
-      },
-      {
-        original: 'http://lorempixel.com/1000/600/nature/2/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/2/',
-      },
-      {
-        original: 'http://lorempixel.com/1000/600/nature/3/',
-        thumbnail: 'http://lorempixel.com/250/150/nature/3/',
-      },
-    ];
+    const errors = {};
 
     return (
       <div>
@@ -203,7 +208,7 @@ class Campaign extends Component {
           </div>
         </div>
         <div className="row section">
-          <form className="col s12">
+          <form className="col s12" encType="multipart/form-data">
             <div className="row">
               <div className="input-field col s12">
                 <input
@@ -256,16 +261,13 @@ class Campaign extends Component {
                 />
               </Input>
             </div>
-            <div className="section">
-              <h5>Slides</h5>
-            </div>
-            <div className="divider"></div>
-            <div className="row thumbs-container">
-              <ImageGallery
-                items={images}
-                autoPlay={true}
-                slideInterval={4000}
-                //  onSlide={this.handleSlide.bind(this)}
+            <div className="row section">
+              <ImageUpload
+                images={imageUpload.images}
+                isUploading={imageUpload.isUploading}
+                onDropImage={::this.handleDropImage}
+                onRemoveImage={::this.handleRemoveImage}
+                errors={errors}
               />
             </div>
             <div className="row actions">
@@ -333,7 +335,7 @@ class Campaign extends Component {
     return (
       <div className="app-page page-campaign white" style={divStyle}>
         {isFetchingFromBackEnd && <div> {Strings.Campaign.Loading}</div>}
-        {this.renderCampaign(isFetchingFromBackEnd)}
+        {!isFetchingFromBackEnd && this.renderCampaign()}
       </div>
     );
   }
@@ -345,6 +347,8 @@ export default connect((state) => {
     campaignDetail: state.campaignDetail,
     campaignSave: state.campaignSave,
     categoryList: state.categoryList,
+    imageDelete: state.imageDelete,
+    imageUpload: state.imageUpload,
     intervalList: state.intervalList,
   };
 })(Campaign);

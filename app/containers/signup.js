@@ -1,26 +1,89 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { signup as sig} from '../actions/signup';
+import { signup as sig } from '../actions/signup';
 
 import { Strings } from '../constants';
 
 const noavatarImage = require('../../images/containers/login/noavatar.png');
 
 class SignUp extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      errorMessage: '',
+    };
+  }
 
   componentWillReceiveProps (nextProps) {
     const { signup, history } = nextProps;
-    if (!signup.isSignedUp) {
+
+    if (signup.isFetching) {
+      return;
+    }
+
+    if (!signup.signupError) {
       history.push('login');
     }
+  }
+
+  setErrorMessage (message) {
+    this.setState({
+      errorMessage: message,
+    });
+  }
+
+  validateCredentials () {
+    const { email, password, password2 } = this.refs;
+
+    return this.validateEmail(email.value)
+            && this.validatePasswordLength(password.value)
+            && this.validatePasswordMatch(password.value, password2.value);
+  }
+
+  validatePasswordMatch (password, password2) {
+    if (password !== password2) {
+      this.setErrorMessage(Strings.Signup.Validations.Password.Match);
+      return false;
+    }
+
+    this.setErrorMessage('');
+    return true;
+  }
+
+  validatePasswordLength (password) {
+    if (password.length < 8) {
+      this.setErrorMessage(Strings.Signup.Validations.Password.Length);
+      return false;
+    }
+
+    this.setErrorMessage('');
+    return true;
+  }
+
+  validateEmail (email) {
+    const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+    if (email.length === 0) {
+      this.setErrorMessage(Strings.Signup.Validations.Email.Required);
+      return false;
+    }
+
+    if (!email.match(pattern)) {
+      this.setErrorMessage(Strings.Signup.Validations.Email.Valid);
+      return false;
+    }
+
+    this.setErrorMessage('');
+    return true;
   }
 
   handleSignUp () {
     const { dispatch, signup } = this.props;
     const { email, password } = this.refs;
 
-    if (signup.isFetching) {
+    if (signup.isFetching || this.validateCredentials() === false) {
       return;
     }
 
@@ -90,18 +153,23 @@ class SignUp extends Component {
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input ref="password" placeholder="" id="password" type="password" />
+                    <input ref="password" placeholder="" onChange={::this.validateCredentials} id="password" type="password" />
                     <label htmlFor="password" className="active">{Strings.Signup.FormFields.Password}</label>
                   </div>
                 </div>
                 <div className="row margin">
                   <div className="input-field col s12">
                     <i className="mdi-action-lock-outline prefix"></i>
-                    <input ref="password2" placeholder="" id="password2" type="password" />
+                    <input ref="password2" placeholder="" onChange={::this.validateCredentials} id="password2" type="password" />
                     <label htmlFor="password2" className="active">{Strings.Signup.FormFields.Password2}</label>
                   </div>
                 </div>
                 {this.renderErrorMessage(signup)}
+                <div className="row">
+                  <div className="col s12">
+                    <span className="red-text text-darken-2">{this.state.errorMessage}</span>
+                  </div>
+                </div>
                 <div className="row">
                   <div className="input-field col s12">
                     <a className="btn-large waves-effect waves-light blue col s12" onClick={::this.handleSignUp}>

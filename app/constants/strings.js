@@ -74,6 +74,16 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
       Password: 'Senha',
       Password2: 'Confirme sua senha',
     },
+    Validations: {
+      Email: {
+        Required: 'O campo email é obrigatório.',
+        Valid: 'O email informado não está em um formato válido.',
+      },
+      Password: {
+        Match: 'Os passwords informados não são iguais.',
+        Length: 'Informe um password com no mínimo 8 caracteres.',
+      },
+    },
   },
 
 });

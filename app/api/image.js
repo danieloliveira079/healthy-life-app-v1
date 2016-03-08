@@ -7,7 +7,7 @@ const ACCESS_TOKEN = '';
 export async function uploadImage (image) {
   const path = `${config.dropBoxApi.uploadPath}${image.name}`;
 
-  const { data } = await axios({
+  const { data: file } = await axios({
     method: 'post',
     headers: {
       'Authorization': `Bearer ${ACCESS_TOKEN}`,
@@ -16,6 +16,26 @@ export async function uploadImage (image) {
     },
     url: config.dropBoxApi.uploadUrl,
     data: image,
+  });
+
+  const data = await getThumbnail(file.path_lower);
+
+  return {
+    ...file,
+    image: data,
+  };
+}
+
+export async function getThumbnail (path) {
+  const { data } = await axios({
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${ACCESS_TOKEN}`,
+      'Content-Type': 'application/json',
+      'Dropbox-API-Arg': `{ "path": "${path}" }`,
+    },
+    // url: 'https://content.dropboxapi.com/2/files/get_thumbnail',
+    url: 'https://content.dropboxapi.com/2/files/download',
   });
 
   return data;

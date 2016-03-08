@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var config = require('dotenv').config();
 
 
 module.exports = {
@@ -19,9 +20,10 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
         'API_SERVICE_URL': JSON.stringify(process.env.API_SERVICE_URL || 'https://healthy-life-api.herokuapp.com/'),
-        'DROPBOX_UPLOAD_PATH': JSON.stringify(process.env.DROPBOX_UPLOAD_PATH || ''),
         'DROPBOX_UPLOAD_URL': JSON.stringify(process.env.DROPBOX_UPLOAD_URL || ''),
-        'DROPBOX_DELETE_URL': JSON.stringify(process.env.DROPBOX_DELETE_URL || '')
+        'DROPBOX_UPLOAD_PATH': JSON.stringify(process.env.DROPBOX_UPLOAD_PATH || ''),
+        'DROPBOX_DELETE_URL': JSON.stringify(process.env.DROPBOX_DELETE_URL || ''),
+        'DROPBOX_TOKEN': JSON.stringify(process.env.DROPBOX_TOKEN || '')
       }
     }),
     new webpack.ProvidePlugin({

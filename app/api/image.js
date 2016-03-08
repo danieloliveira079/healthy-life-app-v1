@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import config from '../env/config';
 
-const ACCESS_TOKEN = '';
+const ACCESS_TOKEN = config.dropBoxApi.token;
 
 export async function uploadImage (image) {
   const path = `${config.dropBoxApi.uploadPath}${image.name}`;

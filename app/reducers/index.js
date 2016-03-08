@@ -7,6 +7,8 @@ import campaignDetail from './campaign-detail';
 import campaignList from './campaign-list';
 import campaignSave from './campaign-save';
 import categoryList from './category-list';
+import imageDelete from './image-delete';
+import imageUpload from './image-upload';
 import intervalList from './interval-list';
 
 
@@ -18,6 +20,8 @@ const rootReducer = combineReducers({
   campaignList,
   campaignSave,
   categoryList,
+  imageDelete,
+  imageUpload,
   intervalList,
 });
 

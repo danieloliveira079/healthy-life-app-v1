@@ -5,10 +5,11 @@ $fa-font-path: '~font-awesome/fonts';
 @import './variables';
 @import './mixins';
 //@import './fonts';
-@import './components/navbar.scss';
 @import './custom-materialize';
 @import './common';
 
 /* Components */
+@import './components/image-upload';
+@import './components/navbar';
 
 /* Containers */

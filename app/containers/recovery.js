@@ -42,12 +42,12 @@ class Recovery extends Component {
     const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
     if (email.length === 0) {
-      this.setErrorMessage(Strings.Signup.Validations.Email.Required);
+      this.setErrorMessage(Strings.Recover.Validations.Email.Required);
       return false;
     }
 
     if (!email.match(pattern)) {
-      this.setErrorMessage(Strings.Signup.Validations.Email.Valid);
+      this.setErrorMessage(Strings.Recover.Validations.Email.Valid);
       return false;
     }
 
@@ -76,7 +76,7 @@ class Recovery extends Component {
     return (
       <div className="row">
         <div className="col s12">
-          <span className="red-text text-darken-2">{Strings.Signup.SignUpFailure}</span>
+          <span className="red-text text-darken-2">{Strings.Recover.RecoveryFailure}</span>
         </div>
       </div>
     );

@@ -69,8 +69,15 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     FormFields: {
       Email: 'Email',
     },
+    Validations: {
+      Email: {
+        Required: 'O campo email é obrigatório.',
+        Valid: 'O email informado não está em um formato válido.',
+      },
+    },
     RecoverAction: 'Enviar Link',
     CancelAction: 'Cancelar',
+    RecoveryFailure: 'O email informado não está cadastrado!',
   },
 
   Signup: {

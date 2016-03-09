@@ -17,7 +17,5 @@ export async function signup (payload) {
   localStorage.clear();
   const { data } = await ApiClient.post(options);
 
-  // ApiClient.setAccessTokenAndUserEmail(data);
-
   return data;
 }

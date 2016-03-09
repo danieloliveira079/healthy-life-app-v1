@@ -1,6 +1,6 @@
 import ApiClient from './api-client';
 
-const serviceUrl = 'recover';
+const serviceUrl = 'recovery';
 
 export async function recover (payload) {
   const body = {

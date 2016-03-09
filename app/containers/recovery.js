@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { recovery as rec } from '../actions/recovery';
+import { recover as rec } from '../actions/recovery';
 
 import { Strings } from '../constants';
 
@@ -95,12 +95,6 @@ class Recovery extends Component {
       marginLeft: 'auto',
       marginTop: '20px',
       marginBottom: '50px',
-    };
-
-    const avatarStyle = {
-      width: '120px',
-      height: '120px',
-      marginTop: '25px',
     };
 
     const headerStyle = {

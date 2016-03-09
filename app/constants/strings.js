@@ -67,7 +67,7 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
   Recover: {
     FormTitle: 'Informe o email da sua conta para receber o link de recuperação de senha.',
     FormFields: {
-      Email: 'Email'
+      Email: 'Email',
     },
     RecoverAction: 'Enviar Link',
     CancelAction: 'Cancelar',

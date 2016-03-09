@@ -117,7 +117,7 @@ class Login extends Component {
                     <p className="margin medium-small"><a href="#/signup">{Strings.Login.SignUpText}</a></p>
                   </div>
                   <div className="input-field col s6 m6 l6">
-                      <p className="margin right-align medium-small"><a href="#">{Strings.Login.PasswordRecovery}</a></p>
+                      <p className="margin right-align medium-small"><a href="#/recover">{Strings.Login.PasswordRecovery}</a></p>
                   </div>
                 </div>
               </form>

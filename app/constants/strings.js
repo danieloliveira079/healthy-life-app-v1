@@ -64,6 +64,15 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     LoginFailure: 'Não foi possível realizar o login. Verifique seu email e senha.',
   },
 
+  Recover: {
+    FormTitle: 'Informe o email da sua conta para receber o link de recuperação de senha.',
+    FormFields: {
+      Email: 'Email'
+    },
+    RecoverAction: 'Enviar Link',
+    CancelAction: 'Cancelar',
+  },
+
   Signup: {
     FormTitle: 'Informe as credenciais da nova conta',
     SignUpFailure: 'Não foi possível realizar o cadastro da conta!',

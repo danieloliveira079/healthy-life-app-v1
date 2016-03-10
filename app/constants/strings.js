@@ -62,6 +62,24 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     SignUpText: 'Faça seu cadastro!',
     PasswordRecovery: 'Esqueceu sua senha?',
     LoginFailure: 'Não foi possível realizar o login. Verifique seu email e senha.',
+    Processing: 'Enviando',
+  },
+
+  Recover: {
+    FormTitle: 'Informe o email da sua conta para receber o link de recuperação de senha.',
+    FormFields: {
+      Email: 'Email',
+    },
+    Validations: {
+      Email: {
+        Required: 'O campo email é obrigatório.',
+        Valid: 'O email informado não está em um formato válido.',
+      },
+    },
+    Processing: 'Enviando',
+    RecoverAction: 'Enviar',
+    CancelAction: 'Cancelar',
+    RecoveryFailure: 'O email informado não está cadastrado!',
   },
 
   Signup: {

@@ -1,8 +1,8 @@
 import ApiClient from './api-client';
 
-const serviceUrl = 'signup';
+const serviceUrl = 'recovery';
 
-export async function signup (payload) {
+export async function recover (payload) {
   const body = {
     user: {
       ...payload,

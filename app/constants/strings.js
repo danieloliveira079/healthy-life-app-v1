@@ -62,6 +62,7 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
     SignUpText: 'Faça seu cadastro!',
     PasswordRecovery: 'Esqueceu sua senha?',
     LoginFailure: 'Não foi possível realizar o login. Verifique seu email e senha.',
+    Processing: 'Enviando',
   },
 
   Recover: {
@@ -75,7 +76,8 @@ Strings['pt-BR'] = Object.assign({}, Strings['en-US'], {
         Valid: 'O email informado não está em um formato válido.',
       },
     },
-    RecoverAction: 'Enviar Link',
+    Processing: 'Enviando',
+    RecoverAction: 'Enviar',
     CancelAction: 'Cancelar',
     RecoveryFailure: 'O email informado não está cadastrado!',
   },

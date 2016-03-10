@@ -128,7 +128,7 @@ class Recovery extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <a className="btn-large waves-effect waves-light blue col s12" onClick={::this.handleRecovery}>
-                      {Strings.Recover.RecoverAction}
+                      {recovery.isFetching && Strings.Recover.Processing || Strings.Recover.RecoverAction}
                     </a>
                   </div>
                 </div>

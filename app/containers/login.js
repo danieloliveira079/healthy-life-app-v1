@@ -108,7 +108,7 @@ class Login extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <a className="btn-large waves-effect waves-light blue col s12" onClick={::this.handleLogin}>
-                      {Strings.Login.LoginAction}
+                      {auth.isFetching && Strings.Login.Processing || Strings.Login.LoginAction}
                     </a>
                   </div>
                 </div>

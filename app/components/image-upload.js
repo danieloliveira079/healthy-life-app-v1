@@ -26,7 +26,7 @@ export default class ImageUpload extends Component {
                   <img src="http://lorempixel.com/1000/600/nature/2/" />
                 </div>
                 <div
-                  onClick={() => this.props.onRemoveImage(image.path_display)}
+                  onClick={() => this.props.onRemoveImage(image.path)}
                   className="delete"
                 >
                   <i className="fa fa-trash"></i>

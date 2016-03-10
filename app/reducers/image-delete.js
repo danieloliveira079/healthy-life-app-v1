@@ -8,6 +8,7 @@ import {
 const INITIAL_STATE = {
   isDeleting: false,
   image: null,
+  hasDeletedImage: false,
   error: null,
 };
 
@@ -17,6 +18,7 @@ export default function reducer (state = INITIAL_STATE, action) {
       return {
         ...state,
         isDeleting: true,
+        hasDeletedImage: false,
         error: null,
       };
     case DELETE_IMAGE_SUCCESS:
@@ -24,12 +26,14 @@ export default function reducer (state = INITIAL_STATE, action) {
         ...state,
         isDeleting: false,
         image: action.image,
+        hasDeletedImage: true,
         error: null,
       };
     case DELETE_IMAGE_FAILURE:
       return {
         ...state,
         isDeleting: false,
+        hasDeletedImage: false,
         error: action.error,
       };
     case IMAGE_RESET:

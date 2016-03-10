@@ -34,8 +34,8 @@ export async function getThumbnail (path) {
       'Content-Type': 'application/json',
       'Dropbox-API-Arg': `{ "path": "${path}" }`,
     },
-    // url: 'https://content.dropboxapi.com/2/files/get_thumbnail',
-    url: 'https://content.dropboxapi.com/2/files/download',
+    url: 'https://content.dropboxapi.com/2/files/get_thumbnail',
+    // url: 'https://content.dropboxapi.com/2/files/download',
   });
 
   return data;

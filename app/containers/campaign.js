@@ -34,6 +34,7 @@ class Campaign extends Component {
         active: false,
         description: '',
         category: '',
+        image: [],
       },
     };
   }
@@ -50,19 +51,42 @@ class Campaign extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { campaignDelete, campaignDetail, campaignSave } = nextProps;
+    const {
+      campaignDelete,
+      campaignDetail,
+      campaignSave,
+      imageDelete,
+      imageUpload,
+    } = nextProps;
 
     if (campaignDelete.isDeleted || campaignSave.isSaved) {
       this.props.history.push('home');
       return;
     }
 
+    let campaign = null;
+
     if (campaignDetail.item) {
-      this.setState({
-        campaign: {
-          ...campaignDetail.item,
-        },
-      });
+      campaign = { ...campaignDetail.item };
+    }
+
+    if (imageUpload.hasUploadedImage || imageDelete.hasDeletedImage) {
+      let image = [];
+
+      if (campaign) {
+        image = [...campaign.image];
+      }
+      image = [...image].concat(imageUpload.images);
+
+      campaign = {
+        ...this.state.campaign,
+        ...campaign,
+        image,
+      };
+    }
+
+    if (campaign) {
+      this.setState({ campaign });
     }
   }
 
@@ -123,7 +147,11 @@ class Campaign extends Component {
 
     const campaign = {
       ...this.state.campaign,
-      images: [...imageUpload.images],
+      image: this.state.campaign.image.map(image => {
+        return {
+          path: image.path_lower || image.path,
+        };
+      }),
     };
 
     delete campaign.id;
@@ -263,7 +291,7 @@ class Campaign extends Component {
             </div>
             <div className="row section">
               <ImageUpload
-                images={imageUpload.images}
+                images={campaign.image}
                 isUploading={imageUpload.isUploading}
                 onDropImage={::this.handleDropImage}
                 onRemoveImage={::this.handleRemoveImage}

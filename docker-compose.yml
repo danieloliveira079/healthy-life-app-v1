@@ -1,0 +1,32 @@
+web:
+  #image: danieloliv/healthy-life-web
+  build: .
+  links:
+    - api
+  restart: always
+  ports:
+    - "8080:8080"
+  environment:
+    NODE_ENV: production
+    API_SERVICE_URL: http://192.168.99.100:3000/
+    DROPBOX_UPLOAD_URL: 123
+    DROPBOX_UPLOAD_PATH: 123
+    DROPBOX_DELETE_URL: 123
+    DROPBOX_TOKEN: 123
+
+api:
+  image: danieloliv/healthylife-api
+  restart: always
+  ports:
+    - "3000:3000"
+  volumes:
+    - /var/data/postgres:/var/lib/postgresql/data
+  links:
+    - db
+  environment:
+    RAILS_ENV: development
+    DATABASE_HOST: db
+    DATABASE_PORT: 5432
+
+db:
+  image: postgres

@@ -24,6 +24,8 @@ api:
     RAILS_ENV: development
     DATABASE_HOST: db
     DATABASE_PORT: 5432
+    gmail_username: example@org.com #substituir pelo endereço de email @gmail.com
+    gmail_password: pwd #substituir pela senha do gmail
 
 db:
   image: postgres

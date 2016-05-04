@@ -1,5 +1,4 @@
 web:
-  #image: danieloliv/healthy-life-web
   build: .
   links:
     - api

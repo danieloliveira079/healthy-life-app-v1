@@ -1,6 +1,6 @@
 # Healthy Life Application
 
-O aplicativo Healthy Life é composto por dois sistemas:
+O aplicativo Healthy Life é composto por 3 elementos:
 
 - Front-End: Aplicação NodeJS usando React+Flux
 - Back-End: REST API escrita usando o framework Rails. O código fonte da API pode ser encontrada em [https://github.com/danieloliveira079/healthy-life-api](https://github.com/danieloliveira079/healthy-life-api)

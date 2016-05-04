@@ -42,7 +42,7 @@ A tecnologia de containers nos permite iniciar os 3 serviços do aplicativo de f
 
 Em uma janela do terminal execute o seguinte comando estando na raíz do projeto:
 
-`sudo docker-compose up`
+`$ sudo docker-compose up`
 
 Esse processo levará um tempo para ser concluído pois serão baixadas todas as images do repositório [Docker Hub](https://hub.docker.com/). Além disso durante a inicialização dos containers são realizados alguns procedimentos como: build, criação do banco e inserção inicial de dados base.
 

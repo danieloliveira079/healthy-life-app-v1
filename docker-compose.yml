@@ -30,4 +30,4 @@ api:
 db:
   image: postgres
   volumes:
-    - /var/data/postgres:/var/lib/postgresql/data
+    - healthylife-pg:/var/lib/postgresql/data
